@@ -1,3 +1,25 @@
 {
-  "store/test": "teste"
+  "admin/editor.shelf.title": "Escaparate",
+  "admin/editor.shelf.description": "Description",
+  "admin/editor.shelf.strategy.title": "Estrategia de recomendación",
+  "admin/editor.shelf.secondary-strategy.title": "Estrategia de recomendación secundaria",
+  "admin/editor.shelf.strategy.most-viewed-store.label": "Más vistos de la tienda",
+  "admin/editor.shelf.strategy.most-viewed-user.label": "Más vistos por el usuario",
+  "admin/editor.shelf.strategy.most-viewed-products.label": "Más vistos por producto",
+  "admin/editor.shelf.strategy.best-sellers-store.label": "Más vendidos de la tienda",
+  "admin/editor.shelf.strategy.best-sellers-user.label": "Más vendidos por el usuario",
+  "admin/editor.shelf.strategy.best-sellers-products.label": "Más vendidos por producto",
+  "admin/editor.shelf.strategy.offers-store.label": "Ofertas de la tienda",
+  "admin/editor.shelf.strategy.offers-user.label": "Ofertas por el usuario",
+  "admin/editor.shelf.strategy.offers-products.label": "Ofertas por producto",
+  "admin/editor.shelf.strategy.new-releases-store.label": "Lanzamientos de la tienda",
+  "admin/editor.shelf.strategy.new-releases-user.label": "Lanzamientos por el usuario",
+  "admin/editor.shelf.strategy.new-releases-products.label": "Lanzamientos por producto",
+  "admin/editor.shelf.strategy.click-history.label": "Historial de clics",
+  "admin/editor.shelf.strategy.navigation-history.label": "Historial de navegación",
+  "admin/editor.shelf.strategy.order-history.label": "Historial de pedidos",
+  "admin/editor.shelf.strategy.cart-abandonment.label": "Carrito abandonado",
+  "admin/editor.shelf.strategy.bought-together.label": "Comprados junto",
+  "admin/editor.shelf.strategy.best-choice.label": "Mejor elección",
+  "admin/editor.shelf.strategy.similar-products.label": "Productos similares"
 }

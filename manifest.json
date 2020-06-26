@@ -7,10 +7,12 @@
   "builders": {
     "docs": "0.x",
     "messages": "1.x",
-    "react": "3.x"
+    "react": "3.x",
+    "store": "0.x"
   },
   "dependencies": {
-    "vtex.messages": "1.x"
+    "vtex.messages": "1.x",
+    "vtex.product-summary": "2.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

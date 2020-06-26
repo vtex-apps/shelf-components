@@ -1,3 +1,25 @@
 {
-  "store/test": "test"
+  "admin/editor.shelf.title": "Shelf",
+  "admin/editor.shelf.description": "Description",
+  "admin/editor.shelf.strategy.title": "Recommendation strategy",
+  "admin/editor.shelf.secondary-strategy.title": "Secondary recommendation strategy",
+  "admin/editor.shelf.strategy.most-viewed-store.label": "Most viewed store",
+  "admin/editor.shelf.strategy.most-viewed-user.label": "Most viewed user",
+  "admin/editor.shelf.strategy.most-viewed-products.label": "Most viewed products",
+  "admin/editor.shelf.strategy.best-sellers-store.label": "Best sellers store",
+  "admin/editor.shelf.strategy.best-sellers-user.label": "Best sellers user",
+  "admin/editor.shelf.strategy.best-sellers-products.label": "Best sellers products",
+  "admin/editor.shelf.strategy.offers-store.label": "Offers store",
+  "admin/editor.shelf.strategy.offers-user.label": "Offers user",
+  "admin/editor.shelf.strategy.offers-products.label": "Offers products",
+  "admin/editor.shelf.strategy.new-releases-store.label": "New releases store",
+  "admin/editor.shelf.strategy.new-releases-user.label": "New releases user",
+  "admin/editor.shelf.strategy.new-releases-products.label": "New releases products",
+  "admin/editor.shelf.strategy.click-history.label": "Click history",
+  "admin/editor.shelf.strategy.navigation-history.label": "Navigation history",
+  "admin/editor.shelf.strategy.order-history.label": "Order history",
+  "admin/editor.shelf.strategy.cart-abandonment.label": "Cart abandonment",
+  "admin/editor.shelf.strategy.bought-together.label": "Bought together",
+  "admin/editor.shelf.strategy.best-choice.label": "Best choice",
+  "admin/editor.shelf.strategy.similar-products.label": "Similar products"
 }
