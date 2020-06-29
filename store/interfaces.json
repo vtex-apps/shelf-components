@@ -6,6 +6,9 @@
     "preview": {
       "type": "grid",
       "height": 550
+    },
+    "content": {
+      "$ref": "#/definitions/Shelf"
     }
   }
 }
