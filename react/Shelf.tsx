@@ -8,7 +8,7 @@ interface ShelfProps {
   children: any
   products?: any[]
   category?: string
-  specificationFilters?: any[]
+  specificationFilters?: Array<{ id: string; value: string }>
   collection?: string
   orderBy?: string
   hideUnavailableItems?: boolean
