@@ -7,5 +7,10 @@
     "content": {
       "$ref": "#/definitions/BuyTogether"
     }
+  },
+  "refresh-shelf": {
+    "required": ["product-summary"],
+    "component": "RefreshShelf",
+    "composition": "children"
   }
 }
