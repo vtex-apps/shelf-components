@@ -6,5 +6,6 @@
   "admin/editor.buy-together.title.label": "Title",
   "store/shelf.buy-together.change.label": "Change",
   "store/shelf.buy-together.remove.label": "Remove",
-  "store/shelf.buy-together.total-products.label": "Buy {total} {total, plural, one {product} other {products}} for"
+  "store/shelf.buy-together.total-products.label": "Buy {total} {total, plural, one {product} other {products}} for",
+  "store/shelf.refresh.refresh-product-summary.title": "You saw"
 }
