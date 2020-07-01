@@ -7,5 +7,6 @@
   "store/shelf.buy-together.change.label": "Mudar",
   "store/shelf.buy-together.remove.label": "Remover",
   "store/shelf.buy-together.total-products.label": "Comprar {total} {total, plural, one {produto} other {produtos}} por",
-  "store/shelf.refresh.refresh-product-summary.title": "Você viu"
+  "store/shelf.refresh.refresh-product-summary.title": "Você viu",
+  "store/shelf.refresh.suggested-products.title": "Sugeridos para você"
 }

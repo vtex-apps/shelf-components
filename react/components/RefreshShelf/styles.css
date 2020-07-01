@@ -1,3 +1,26 @@
 .refreshProductSummary {
   margin-bottom: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.25rem;
+}
+
+.refreshShelf {
+  margin-bottom: 25px;
+}
+
+.suggestedProductsTitleContainer {
+  height: 40px;
+}
+
+.suggestedProductsContainer {
+  max-width: -webkit-fill-available;
+  text-align: center;
+}
+
+.suggestedProductsTitle {
+  vertical-align: -webkit-baseline-middle;
+}
+
+.slide {
+  max-width: 16rem;
 }

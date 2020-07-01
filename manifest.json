@@ -23,7 +23,8 @@
     "vtex.product-summary": "2.x",
     "vtex.responsive-layout": "0.x",
     "vtex.store-components": "3.x",
-    "vtex.styleguide": "9.x"
+    "vtex.styleguide": "9.x",
+    "vtex.slider-layout": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

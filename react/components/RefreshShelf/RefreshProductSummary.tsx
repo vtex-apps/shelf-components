@@ -42,8 +42,8 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
   }
 
   return (
-    <div className={`flex-row mw5 tc ${styles.refreshProductSummary}`}>
-      <div className="flex-column mv4">
+    <div className={`mw5 tc ${styles.refreshProductSummary}`}>
+      <div className="flex-column nowrap mv4">
         <span className="f4 fw7 ttu mh4 v-mid">
           {title ?? intl.formatMessage(messages.title)}
         </span>
