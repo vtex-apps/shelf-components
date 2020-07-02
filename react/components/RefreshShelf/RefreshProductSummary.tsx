@@ -9,7 +9,7 @@ import IconRefresh from '../../icons/IconRefresh'
 
 interface RefreshProductSummaryProps {
   products: any[]
-  onChangeProduct?: () => void
+  onChangeProduct?: (id: number) => void
   title?: string
 }
 
@@ -38,11 +38,11 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
       products[index]
     )
     setSelected(normalizedProduct)
-    onChangeProduct?.()
+    onChangeProduct?.(normalizedProduct.productId)
   }
 
   return (
-    <div className={`mw5 tc ${styles.refreshProductSummary}`}>
+    <div className={`tc w-70 w-30-ns w-20-l ${styles.refreshProductSummary}`}>
       <div className="flex-column nowrap mv4">
         <span className="f4 fw7 ttu mh4 v-mid">
           {title ?? intl.formatMessage(messages.title)}

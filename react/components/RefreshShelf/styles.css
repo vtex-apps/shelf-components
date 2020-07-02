@@ -1,7 +1,7 @@
 .refreshProductSummary {
   margin-bottom: auto;
-  padding-left: 0.5rem;
-  padding-right: 0.25rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .refreshShelf {
@@ -21,6 +21,15 @@
   vertical-align: -webkit-baseline-middle;
 }
 
+@media screen and (min-width: 40em) {
+  .suggestedProductsContainer {
+    width: 75%;
+  }
+}
+
+
 .slide {
-  max-width: 16rem;
+  margin-bottom: 25px;
+  margin-left: .5rem;
+  margin-right: .5rem;
 }

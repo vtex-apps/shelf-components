@@ -8,6 +8,52 @@
           "type": "string"
         }
       }
+    },
+    "RefreshShelf": {
+      "type": "object",
+      "properties": {
+        "sliderLayout": {
+          "type": "object",
+          "title": "admin/editor.refresh-shelf.slider-layout.title",
+          "properties": {
+            "showNavigationArrows": {
+              "default": "always",
+              "enum": ["mobileOnly", "desktopOnly", "always", "never"],
+              "title": "admin/editor.slider-layout.showNavigation",
+              "type": "string"
+            },
+            "showPaginationDots": {
+              "default": "always",
+              "enum": ["mobileOnly", "desktopOnly", "always", "never"],
+              "title": "admin/editor.slider-layout.showPaginationDots",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "OrderByOptions": {
+      "enum": [
+        "OrderByScoreDESC",
+        "OrderByTopSaleDESC",
+        "OrderByPriceDESC",
+        "OrderByPriceASC",
+        "OrderByNameASC",
+        "OrderByNameDESC",
+        "OrderByReleaseDateDESC",
+        "OrderByBestDiscountDESC"
+      ],
+      "enumNames": [
+        "admin/editor.productSummaryList.orderType.relevance",
+        "admin/editor.productSummaryList.orderType.sales",
+        "admin/editor.productSummaryList.orderType.priceDesc",
+        "admin/editor.productSummaryList.orderType.priceAsc",
+        "admin/editor.productSummaryList.orderType.nameAsc",
+        "admin/editor.productSummaryList.orderType.nameDesc",
+        "admin/editor.productSummaryList.orderType.releaseDate",
+        "admin/editor.productSummaryList.orderType.discount"
+      ],
+      "default": "OrderByTopSaleDESC"
     }
   }
 }

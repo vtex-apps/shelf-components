@@ -8,6 +8,10 @@ import styles from './styles.css'
 interface Props {
   title?: string
   products: any[]
+  sliderProps?: {
+    showNavigationArrows: string
+    showPaginationDots: string
+  }
 }
 
 const messages = defineMessages({
@@ -18,7 +22,7 @@ const messages = defineMessages({
 })
 
 const itemsPerPage = {
-  desktop: 4,
+  desktop: 3,
   phone: 1,
   tablet: 2,
 }
@@ -26,6 +30,7 @@ const itemsPerPage = {
 const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
   products,
   title,
+  sliderProps,
 }) => {
   const intl = useIntl()
 
@@ -41,7 +46,8 @@ const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
       <ProductSummaryListWithoutQuery products={products}>
         <SliderLayout
           totalItems={products.length}
-          showNavigationArrows="always"
+          showNavigationArrows={sliderProps?.showNavigationArrows ?? 'always'}
+          showPaginationDots={sliderProps?.showPaginationDots ?? 'always'}
           fullWidth={false}
           itemsPerPage={itemsPerPage}
           infinite

@@ -11,6 +11,9 @@
   "refresh-shelf": {
     "required": ["product-summary"],
     "component": "RefreshShelf",
-    "composition": "children"
+    "composition": "children",
+    "content": {
+      "$ref": "#/definitions/RefreshShelf"
+    }
   }
 }

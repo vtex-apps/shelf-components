@@ -6,7 +6,12 @@ import styles from './styles.css'
 
 interface RefreshShelfProps {
   children: any
-  products?: any[]
+  baseProducts?: any[]
+  recommendedProducts?: any[]
+  sliderLayout: {
+    showNavigationArrows: string
+    showPaginationDots: string
+  }
 }
 
 const mockProducts = [
@@ -583,14 +588,32 @@ const mockProducts = [
 ]
 
 const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
-  products,
+  baseProducts,
+  recommendedProducts,
+  ...props
 }) => {
+  const handleChangeProduct = (id: number) => {
+    // get index no baseProducts, pegar recommendedProducts[index]
+  }
+
   return (
-    <div className={`flex flex-wrap justify-around ${styles.refreshShelf}`}>
-      <RefreshProductSummary products={products ?? mockProducts} />
-      <SuggestedProducts products={products ?? mockProducts} />
+    <div
+      className={`flex flex-wrap flex-nowrap-ns justify-around ${styles.refreshShelf}`}
+    >
+      <RefreshProductSummary
+        products={baseProducts ?? mockProducts}
+        onChangeProduct={handleChangeProduct}
+      />
+      <SuggestedProducts
+        products={recommendedProducts ?? mockProducts}
+        sliderProps={props.sliderLayout}
+      />
     </div>
   )
+}
+
+RefreshShelf.schema = {
+  title: 'admin/editor.refresh-shelf.title',
 }
 
 export default RefreshShelf
