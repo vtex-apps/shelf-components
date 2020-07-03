@@ -4,8 +4,23 @@ import RefreshProductSummary from './RefreshProductSummary'
 import SuggestedProducts from './SuggestedProducts'
 import styles from './styles.css'
 
+interface SuggestedProductsList {
+  baseProductId: string
+  suggestedProductsIds?: string
+  category?: string
+  specificationFilters?: Array<{ id: string; value: string }>
+  collection?: string
+  orderBy?: string
+  hideUnavailableItems?: boolean
+  maxItems?: number
+  skusFilter?: string
+  installmentCriteria?: string
+}
+
 interface RefreshShelfProps {
-  children: any
+  baseProductTitle?: string
+  suggestedProductsTitle?: string
+  suggestedLists?: SuggestedProductsList[]
   baseProducts?: any[]
   recommendedProducts?: any[]
   sliderLayout: {
@@ -588,11 +603,15 @@ const mockProducts = [
 ]
 
 const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
+  baseProductTitle,
+  suggestedProductsTitle,
+  suggestedLists,
   baseProducts,
   recommendedProducts,
   ...props
 }) => {
   const handleChangeProduct = (id: number) => {
+    // console.log(id, props)
     // get index no baseProducts, pegar recommendedProducts[index]
   }
 
@@ -601,10 +620,12 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
       className={`flex flex-wrap flex-nowrap-ns justify-around ${styles.refreshShelf}`}
     >
       <RefreshProductSummary
+        title={baseProductTitle}
         products={baseProducts ?? mockProducts}
         onChangeProduct={handleChangeProduct}
       />
       <SuggestedProducts
+        title={suggestedProductsTitle}
         products={recommendedProducts ?? mockProducts}
         sliderProps={props.sliderLayout}
       />

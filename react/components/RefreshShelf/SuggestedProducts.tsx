@@ -28,8 +28,8 @@ const itemsPerPage = {
 }
 
 const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
-  products,
   title,
+  products,
   sliderProps,
 }) => {
   const intl = useIntl()
@@ -40,7 +40,7 @@ const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
         className={`mv4 f4 fw7 ttu v-mid ${styles.suggestedProductsTitleContainer}`}
       >
         <span className={styles.suggestedProductsTitle}>
-          {title ?? intl.formatMessage(messages.title)}
+          {title && title !== '' ? title : intl.formatMessage(messages.title)}
         </span>
       </div>
       <ProductSummaryListWithoutQuery products={products}>
