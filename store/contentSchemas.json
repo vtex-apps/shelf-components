@@ -22,6 +22,7 @@
         },
         "suggestedLists": {
           "title": "admin/editor.refresh-shelf.suggested-products-list.title",
+          "description": "admin/editor.refresh-shelf.suggested-products-list.description",
           "type": "array",
           "items": {
             "type": "object",
@@ -85,7 +86,7 @@
         }
       },
       "collection": {
-        "title": "admin/editor.productSummaryList.collection.title",
+        "title": "admin/editor.shelf.collection.title",
         "type": "string",
         "isLayout": false
       },

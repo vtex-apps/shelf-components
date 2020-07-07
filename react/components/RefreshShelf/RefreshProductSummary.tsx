@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { ExtensionPoint } from 'vtex.render-runtime'
+import React, { useState, useEffect } from 'react'
+import { ExtensionPoint, Loading } from 'vtex.render-runtime'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { ButtonWithIcon } from 'vtex.styleguide'
 import { useIntl, defineMessages } from 'react-intl'
@@ -9,7 +9,8 @@ import IconRefresh from '../../icons/IconRefresh'
 
 interface RefreshProductSummaryProps {
   products: any[]
-  onChangeProduct?: (id: number) => void
+  loading: boolean
+  onChangeProduct?: (index: number) => void
   title?: string
 }
 
@@ -22,23 +23,31 @@ const messages = defineMessages({
 
 const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryProps> = ({
   products,
+  loading,
   onChangeProduct,
   title,
 }) => {
   const intl = useIntl()
   const [index, setIndex] = useState(0)
   const [selected, setSelected] = useState(
-    ProductSummary.mapCatalogProductToProductSummary(products[0])
+    products[0]
+      ? ProductSummary.mapCatalogProductToProductSummary(products[0])
+      : {}
   )
+
+  useEffect(() => {
+    if (products?.[index]) {
+      const normalized = ProductSummary.mapCatalogProductToProductSummary(
+        products[index]
+      )
+      setSelected(normalized)
+    }
+  }, [index, products])
 
   const handleRefresh = () => {
     const newIndex = index < products?.length - 1 ? index + 1 : 0
     setIndex(newIndex)
-    const normalizedProduct = ProductSummary.mapCatalogProductToProductSummary(
-      products[index]
-    )
-    setSelected(normalizedProduct)
-    onChangeProduct?.(normalizedProduct.productId)
+    onChangeProduct?.(newIndex)
   }
 
   return (
@@ -47,13 +56,16 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
         <span className="f4 fw7 ttu mh4 v-mid">
           {title && title !== '' ? title : intl.formatMessage(messages.title)}
         </span>
-        <ButtonWithIcon
-          icon={<IconRefresh size={20} />}
-          variation="tertiary"
-          onClick={handleRefresh}
-        />
+        {products?.length > 1 && (
+          <ButtonWithIcon
+            icon={<IconRefresh size={20} />}
+            variation="tertiary"
+            onClick={handleRefresh}
+          />
+        )}
       </div>
-      <ExtensionPoint id="product-summary" product={selected} />
+      {loading && <Loading />}
+      {!loading && <ExtensionPoint id="product-summary" product={selected} />}
     </div>
   )
 }
