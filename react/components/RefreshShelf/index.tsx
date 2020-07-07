@@ -13,11 +13,11 @@ interface SpecificationFilter {
 }
 
 enum ProductUniqueIdentifierField {
-  id,
-  slug,
-  ean,
-  reference,
-  sku,
+  id = 'id',
+  slug = 'slug',
+  ean = 'ean',
+  reference = 'reference',
+  sku = 'sku',
 }
 
 interface SuggestedProductsList {
@@ -69,17 +69,17 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   ] = useLazyQuery(productsByIdentifier)
 
   const [suggestedProducts, setSuggestedProducts] = useState(
-    suggestedProductsData?.products ?? productsData?.products
+    suggestedProductsData?.productsByIdentifier ?? productsData?.products
   )
   const [baseProducts, setBaseProducts] = useState(
-    baseProductsData ?? productsData?.products?.[0]
+    baseProductsData?.productsByIdentifier ?? productsData?.products?.[0]
       ? [productsData?.products?.[0]]
       : []
   )
 
   useEffect(() => {
-    if (suggestedProductsData?.products) {
-      setSuggestedProducts(suggestedProductsData.products)
+    if (suggestedProductsData?.productsByIdentifier) {
+      setSuggestedProducts(suggestedProductsData.productsByIdentifier)
       return
     }
     if (productsData?.products) {
@@ -88,8 +88,8 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   }, [productsData, suggestedProductsData])
 
   useEffect(() => {
-    if (baseProductsData?.products) {
-      setBaseProducts(baseProductsData.products)
+    if (baseProductsData?.productsByIdentifier) {
+      setBaseProducts(baseProductsData.productsByIdentifier)
       return
     }
     if (productsData?.products && productsData.products[0]) {
@@ -97,19 +97,16 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     }
   }, [productsData, baseProductsData])
 
-  // console.log(baseError, 'base error', suggestedError, 'suggestex error')
-
   useEffect(() => {
     if (!suggestedLists) {
       return
     }
-
+    // checar se id n eh string vazia ou undefined ou null
     const baseIds = suggestedLists.map(list => list.baseProductId)
 
     if (baseIds.length === 0) {
       return
     }
-    // console.log(baseIds, 'vai p query by id')
 
     queryBaseProductsByID({
       variables: {
@@ -120,7 +117,6 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   }, [queryBaseProductsByID, suggestedLists])
 
   useEffect(() => {
-    // console.log(suggestedLists, 'suggested lists')
     if (!suggestedLists || suggestedLists.length === 0) {
       queryProducts({
         variables: {
@@ -180,9 +176,9 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     }
   }, [current, queryProducts, querySuggestedProductsByID, suggestedLists])
 
-  const handleChangeProduct = (index: number) => {
-    setCurrent(index)
-    // query suggested[index]
+  const handleChangeProduct = () => {
+    const newIndex = current < baseProducts?.length - 1 ? current + 1 : 0
+    setCurrent(newIndex)
   }
 
   return (
@@ -192,8 +188,9 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
       <RefreshProductSummary
         title={baseProductTitle}
         loading={loading}
+        selected={current}
         products={baseProducts}
-        onChangeProduct={handleChangeProduct}
+        onChangeSelected={handleChangeProduct}
       />
       <SuggestedProducts
         title={suggestedProductsTitle}

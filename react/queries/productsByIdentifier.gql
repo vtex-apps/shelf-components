@@ -1,6 +1,6 @@
 query productsByIdentifier(
   $field: ProductUniqueIdentifierField!
-  $values: [string]
+  $values: [ID!]
 ) {
   productsByIdentifier(field: $field, values: $values)
     @context(provider: "vtex.search-graphql") {
