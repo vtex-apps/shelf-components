@@ -1,0 +1,19 @@
+{
+  "default-shelf": {
+    "required": ["product-summary"],
+    "component": "Shelf",
+    "composition": "children",
+    "preview": {
+      "type": "grid",
+      "height": 550
+    },
+    "content": {
+      "$ref": "#/definitions/Shelf"
+    }
+  },
+  "buy-together": {
+    "required": ["product-summary"],
+    "component": "BuyTogether",
+    "composition": "children"
+  }
+}

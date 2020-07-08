@@ -1,3 +1,7 @@
 {
-  "admin/editor.shelf.title": "Shelf title"
+  "admin/editor.shelf.title": "Shelf title",
+  "admin/editor.shelf.description": "Shelf description",
+  "admin/editor.buy-together.title": "Buy Together title",
+  "store/shelf.buy-together.change.label": "Change label",
+  "store/shelf.buy-together.remove.label": "Remove label"
 }

@@ -1,3 +1,7 @@
 {
-  "admin/editor.shelf.title": "Escaparate"
+  "admin/editor.shelf.title": "Escaparate",
+  "admin/editor.shelf.description": "Description",
+  "admin/editor.buy-together.title": "Comprar juntos",
+  "store/shelf.buy-together.change.label": "Cambiar",
+  "store/shelf.buy-together.remove.label": "Eliminar"
 }
