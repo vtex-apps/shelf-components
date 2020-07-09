@@ -10,8 +10,9 @@ import styles from './styles.css'
 interface Props {
   product: any
   index: number
+  hideChangeAction?: boolean
   onDelete: (index: number) => void
-  onRefresh: () => void
+  onChangeProduct: (index: number) => void
 }
 
 const messages = defineMessages({
@@ -26,25 +27,28 @@ const messages = defineMessages({
 })
 
 const ProductSummaryWithActions: StorefrontFunctionComponent<Props> = ({
-  onDelete,
-  onRefresh,
-  index,
   product,
+  index,
+  hideChangeAction,
+  onDelete,
+  onChangeProduct,
 }) => {
   const normalizedProduct = ProductSummary.mapCatalogProductToProductSummary(
     product
   )
 
   return (
-    <div className={`w-20 ${styles.productSummaryWithActions}`}>
+    <div className={`w-20 ${styles.productSummary}`}>
       <div className="tc nowrap">
-        <ButtonWithIcon
-          icon={<IconRefresh />}
-          variation="tertiary"
-          onClick={onRefresh}
-        >
-          <FormattedMessage {...messages.changeLabel} />
-        </ButtonWithIcon>
+        {!hideChangeAction && (
+          <ButtonWithIcon
+            icon={<IconRefresh />}
+            variation="tertiary"
+            onClick={() => onChangeProduct(index)}
+          >
+            <FormattedMessage {...messages.changeLabel} />
+          </ButtonWithIcon>
+        )}
         <ButtonWithIcon
           icon={<IconClear />}
           variation="tertiary"

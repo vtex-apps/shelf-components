@@ -2,6 +2,8 @@
   "admin/editor.shelf.title": "Escaparate",
   "admin/editor.shelf.description": "Description",
   "admin/editor.buy-together.title": "Comprar juntos",
+  "store/shelf.buy-together.title": "Comprar juntos",
   "store/shelf.buy-together.change.label": "Cambiar",
-  "store/shelf.buy-together.remove.label": "Eliminar"
+  "store/shelf.buy-together.remove.label": "Eliminar",
+  "store/shelf.buy-together.total-products.label": "Comprar {total} {total, plural, one {producto} other {productos}} por"
 }
