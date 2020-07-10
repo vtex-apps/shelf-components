@@ -3,6 +3,7 @@
   "admin/editor.shelf.description": "Shelf description",
   "admin/editor.buy-together.title": "Buy Together editor title",
   "store/shelf.buy-together.title": "Buy together title",
+  "admin/editor.buy-together.title.label": "Buy Together title label",
   "store/shelf.buy-together.change.label": "Change label",
   "store/shelf.buy-together.remove.label": "Remove label",
   "store/shelf.buy-together.total-products.label": "Total products label"

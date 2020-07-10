@@ -1,0 +1,10 @@
+{
+  "add-to-cart-button#my-add-to-cart": {},
+  "buy-button#my-add-to-cart": {},
+  "buy-together": {
+    "blocks": ["product-summary"],
+    "props": {
+      "BuyButton": "add-to-cart-button#my-add-to-cart"
+    }
+  }
+}

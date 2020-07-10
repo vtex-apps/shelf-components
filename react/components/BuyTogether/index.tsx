@@ -12,9 +12,9 @@ import IconEqual from '../../icons/IconEqual'
 import styles from './styles.css'
 
 interface Props {
-  children: any
   title?: string
   suggestedLists?: string
+  BuyButton: React.ComponentType<{ skuItems: any[] }>
 }
 
 const mock = {
@@ -141,8 +141,8 @@ const messages = defineMessages({
 })
 
 const BuyTogether: StorefrontFunctionComponent<Props> = ({
-  children,
   title,
+  BuyButton,
 }) => {
   const { product: baseProduct, selectedItem } = useProduct()
   const { treePath } = useTreePath()
@@ -184,12 +184,8 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
       return total + products[current].priceRange.sellingPrice.lowPrice
     }, 0)
     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-    return selectedItem.sellers[0].commertialOffer.Price + suggestedItemsTotal
-  }, [selectedItem.sellers, suggestedLists])
-
-  // if (children) {
-  //   console.log('receber AddToCart do checkout antigo ou novo', totalProducts)
-  // }
+    return selectedItem?.sellers[0].commertialOffer.Price + suggestedItemsTotal
+  }, [selectedItem, suggestedLists])
 
   return (
     <div className="flex-none tc">
@@ -203,6 +199,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
             <ExtensionPoint
               id="product-summary"
               product={normalizedBaseProduct}
+              selectedItem={selectedItem}
             />
           </div>
           {suggestedLists.map((suggestedList, index) => {
@@ -211,7 +208,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
             }
             const { products, current } = suggestedList
             return (
-              <Fragment key={`${products[current].productId}-${index}`}>
+              <Fragment key={`${products[current]?.productId}-${index}`}>
                 <div className="self-center mh7">
                   <IconPlusLines />
                 </div>
@@ -238,6 +235,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
             <div>
               <FormattedCurrency value={totalPrice} />
             </div>
+            <BuyButton skuItems={[selectedItem]} />
           </div>
         </ProductListProvider>
       </div>

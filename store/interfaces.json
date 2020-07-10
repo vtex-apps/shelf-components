@@ -14,6 +14,9 @@
   "buy-together": {
     "required": ["product-summary"],
     "component": "BuyTogether",
-    "composition": "children"
+    "composition": "children",
+    "content": {
+      "$ref": "#/definitions/BuyTogether"
+    }
   }
 }

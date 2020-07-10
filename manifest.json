@@ -11,6 +11,8 @@
     "store": "0.x"
   },
   "dependencies": {
+    "vtex.add-to-cart-button": "0.x",
+    "vtex.store-components": "3.x",
     "vtex.messages": "1.x",
     "vtex.product-summary": "2.x",
     "vtex.styleguide": "9.x",
