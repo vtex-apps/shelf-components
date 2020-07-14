@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { FormattedMessage, defineMessages } from 'react-intl'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
@@ -33,8 +33,9 @@ const ProductSummaryWithActions: StorefrontFunctionComponent<Props> = ({
   onDelete,
   onChangeProduct,
 }) => {
-  const normalizedProduct = ProductSummary.mapCatalogProductToProductSummary(
-    product
+  const normalizedProduct = useMemo(
+    () => ProductSummary.mapCatalogProductToProductSummary(product),
+    [product]
   )
 
   return (

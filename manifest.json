@@ -12,13 +12,15 @@
   },
   "dependencies": {
     "vtex.add-to-cart-button": "0.x",
-    "vtex.store-components": "3.x",
+    "vtex.format-currency": "0.x",
     "vtex.messages": "1.x",
-    "vtex.product-summary": "2.x",
-    "vtex.styleguide": "9.x",
     "vtex.product-context": "0.x",
+    "vtex.product-group-context": "0.x",
     "vtex.product-list-context": "0.x",
-    "vtex.format-currency": "0.x"
+    "vtex.product-summary": "2.x",
+    "vtex.responsive-layout": "0.x",
+    "vtex.store-components": "3.x",
+    "vtex.styleguide": "9.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

@@ -1,8 +1,11 @@
 {
   "add-to-cart-button#my-add-to-cart": {},
   "buy-button#my-add-to-cart": {},
+  "product-summary.shelf#buy-together": {
+    "children": []
+  },
   "buy-together": {
-    "blocks": ["product-summary"],
+    "blocks": ["product-summary.shelf#buy-together"],
     "props": {
       "BuyButton": "add-to-cart-button#my-add-to-cart"
     }
