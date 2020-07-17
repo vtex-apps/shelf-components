@@ -5,7 +5,6 @@ import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { ButtonWithIcon, IconClear } from 'vtex.styleguide'
 
 import IconRefresh from '../../icons/IconRefresh'
-import styles from './styles.css'
 
 interface Props {
   product: any
@@ -39,8 +38,8 @@ const ProductSummaryWithActions: StorefrontFunctionComponent<Props> = ({
   )
 
   return (
-    <div className={`w-20 ${styles.productSummary}`}>
-      <div className="tc nowrap">
+    <div className="w-100 w-20-l">
+      <div className="tc nowrap mb3">
         {!hideChangeAction && (
           <ButtonWithIcon
             icon={<IconRefresh />}
