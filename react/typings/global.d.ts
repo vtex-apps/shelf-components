@@ -19,7 +19,23 @@ declare global {
     productName: string
     productReference: string
     sku?: SKU
-    specificationGroups: any[]
+    specificationGroups: SpecificationGroup[]
+  }
+
+  interface ProductPriceRange {
+    sellingPrice: PriceRange
+    listPrice: PriceRange
+  }
+
+  interface PriceRange {
+    highPrice: number
+    lowPrice: number
+  }
+
+  interface SpecificationGroup {
+    name?: string
+    originalName?: string
+    specifications?: any[]
   }
 
   interface Item {
@@ -28,32 +44,34 @@ declare global {
   }
 
   interface SKU {
-    ean: string
+    ean?: string
     images: Array<{
-      imageId: string
+      imageId?: string
       imageLabel: string
-      imageTag: string
+      imageTag?: string
       imageUrl: string
-      imageText: string
+      imageText?: string
     }>
     itemId: string
     measurementUnit: string
     name: string
-    nameComplete: string
+    nameComplete?: string
+    unitMultiplier?: number
     seller?: Seller
     sellers: Seller[]
     referenceId: Array<{
       Key: string
       Value: string
     }> | null
+    variations: Array<{ name: string; values: string[] }>
   }
 
   interface Seller {
-    addToCartLink: string
+    addToCartLink?: string
     commertialOffer: CommertialOffer
     sellerId: string
-    sellerDefault: boolean
-    sellerName: string
+    sellerDefault?: boolean
+    sellerName?: string
   }
 
   interface CommertialOffer {

@@ -6,125 +6,25 @@ import { useProduct } from 'vtex.product-context'
 import { useTreePath, ExtensionPoint } from 'vtex.render-runtime'
 import { FormattedCurrency } from 'vtex.format-currency'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
+import { ProductGroupContext } from 'vtex.product-group-context'
 
 import ProductSummaryWithActions from './ProductSummaryWithActions'
 import IconEqual from '../../icons/IconEqual'
 import styles from './styles.css'
+import { mapSKUItemsToCartItems } from '../../utils'
+
+const { ProductGroupProvider, useProductGroup } = ProductGroupContext
 
 interface Props {
   title?: string
-  suggestedLists?: string
+  suggestedProducts?: Product[][]
   BuyButton: React.ComponentType<{ skuItems: any[] }>
 }
 
-const mock = {
-  cacheId: 'vintage-phone',
-  productId: '2000050',
-  productName: 'Vintage Phone',
-  productReference: '1002P',
-  description: '',
-  link: 'https://portal.vtexcommercestable.com.br/vintage-phone/p',
-  linkText: 'vintage-phone',
-  brand: 'Apple',
-  brandId: 2000013,
-  categories: ['/Home & Decor/'],
-  priceRange: {
-    sellingPrice: { highPrice: 44, lowPrice: 44, __typename: 'PriceRange' },
-    listPrice: { highPrice: 60, lowPrice: 60, __typename: 'PriceRange' },
-    __typename: 'ProductPriceRange',
-  },
-  specificationGroups: [
-    {
-      name: 'allSpecifications',
-      specifications: [],
-      __typename: 'SpecificationGroup',
-    },
-  ],
-  items: [
-    {
-      name: 'Classic',
-      itemId: '310118454',
-      measurementUnit: 'un',
-      unitMultiplier: 1,
-      referenceId: [{ Value: '1004P0', __typename: 'Reference' }],
-      images: [
-        {
-          imageUrl:
-            'https://storecomponents.vtexassets.com/arquivos/ids/155557/download.png?v=637060789467270000',
-          imageTag:
-            '<img src="~/arquivos/ids/155557-#width#-#height#/download.png?v=637060789467270000" width="#width#" height="#height#" alt="Vintage Phone" id="" />',
-          imageLabel: '',
-          __typename: 'Image',
-        },
-      ],
-      variations: [],
-      sellers: [
-        {
-          sellerId: '1',
-          commertialOffer: {
-            Installments: [
-              {
-                Value: 11,
-                InterestRate: 0,
-                TotalValuePlusInterestRate: 44,
-                NumberOfInstallments: 4,
-                Name: 'Visa 4 vezes sem juros',
-                __typename: 'Installment',
-              },
-            ],
-            AvailableQuantity: 3000000,
-            Price: 44,
-            PriceWithoutDiscount: 44,
-            ListPrice: 60,
-            Tax: 0,
-            taxPercentage: 0,
-            teasers: [{ name: 'preco-a-vista', __typename: 'Teaser' }],
-            discountHighlights: [],
-            __typename: 'Offer',
-          },
-          __typename: 'Seller',
-        },
-      ],
-      __typename: 'SKU',
-    },
-  ],
-  productClusters: [],
-  properties: [],
-  __typename: 'Product',
-  sku: {
-    name: 'Classic',
-    itemId: '310118454',
-    measurementUnit: 'un',
-    unitMultiplier: 1,
-    images: [
-      {
-        imageUrl:
-          'https://storecomponents.vtexassets.com/arquivos/ids/155557-500-auto?width=500&height=auto&aspect=true',
-        imageTag:
-          '<img src="~/arquivos/ids/155557-#width#-#height#/download.png?v=637060789467270000" width="#width#" height="#height#" alt="Vintage Phone" id="" />',
-        imageLabel: '',
-        __typename: 'Image',
-      },
-    ],
-    __typename: 'SKU',
-  },
-}
-
-// interface SuggestedList {
-//   products: any[]
-//   hidden: boolean
-//   current: number
-// }
-
-const mockList1 = {
-  products: [mock, { ...mock, productName: 'Vintage phone 2' }],
-  hidden: false,
-  current: 0,
-}
-const mockList2 = {
-  products: [mock],
-  hidden: false,
-  current: 0,
+interface SuggestedList {
+  products: Product[]
+  hidden: boolean
+  current: number
 }
 
 const { ProductListProvider } = ProductListContext
@@ -142,13 +42,21 @@ const messages = defineMessages({
 
 const BuyTogether: StorefrontFunctionComponent<Props> = ({
   title,
+  suggestedProducts,
   BuyButton,
 }) => {
-  const { product: baseProduct, selectedItem } = useProduct()
+  const { product: baseProduct } = useProduct() as any
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const { items } = useProductGroup()!
   const { treePath } = useTreePath()
-  const [suggestedLists, setSuggestedLists] = useState([mockList1, mockList2])
-  const normalizedBaseProduct = ProductSummary.mapCatalogProductToProductSummary(
-    baseProduct
+  const [suggestedLists, setSuggestedLists] = useState<SuggestedList[]>(
+    suggestedProducts?.map(list => {
+      return { products: list, hidden: false, current: 0 }
+    }) ?? []
+  )
+  const normalizedBaseProduct = useMemo(
+    () => ProductSummary.mapCatalogProductToProductSummary(baseProduct),
+    [baseProduct]
   )
 
   const treePathList =
@@ -174,32 +82,30 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
     setSuggestedLists(newSuggestedLists)
   }
 
+  const cartItems = useMemo(() => mapSKUItemsToCartItems(items), [items])
+
   const totalProducts = suggestedLists.filter(list => !list.hidden).length + 1
   const totalPrice = useMemo(() => {
-    const suggestedItemsTotal = suggestedLists.reduce((total, currentList) => {
-      if (currentList.hidden) {
-        return total
+    return items.reduce((total: number, currentItem: Item) => {
+      if (currentItem.selectedItem.seller?.commertialOffer.Price) {
+        return total + currentItem.selectedItem.seller.commertialOffer?.Price
       }
-      const { products, current } = currentList
-      return total + products[current].priceRange.sellingPrice.lowPrice
+      return total + currentItem.selectedItem.sellers[0].commertialOffer?.Price
     }, 0)
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-    return selectedItem?.sellers[0].commertialOffer.Price + suggestedItemsTotal
-  }, [selectedItem, suggestedLists])
+  }, [items])
 
   return (
-    <div className="flex-none tc">
-      <span className="f4 fw7 ttu mh4 v-mid">
+    <div className={`${styles.buyTogether} flex-none tc`}>
+      <span className={`${styles.title} mv4 v-mid`}>
         {title ?? <FormattedMessage {...messages.title} />}
       </span>
-      <div className="flex">
+      <div className="flex flex-column flex-row-l">
         <ProductListProvider listName={trackingId}>
-          <div className={`w-20 ${styles.productSummary}`}>
+          <div className="w-100 w-20-l">
             <div className={styles.productSummary} />
             <ExtensionPoint
               id="product-summary"
               product={normalizedBaseProduct}
-              selectedItem={selectedItem}
             />
           </div>
           {suggestedLists.map((suggestedList, index) => {
@@ -209,8 +115,8 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
             const { products, current } = suggestedList
             return (
               <Fragment key={`${products[current]?.productId}-${index}`}>
-                <div className="self-center mh7">
-                  <IconPlusLines />
+                <div className="self-center ma5">
+                  <IconPlusLines size={20} />
                 </div>
                 <ProductSummaryWithActions
                   onDelete={onDelete}
@@ -222,20 +128,20 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
               </Fragment>
             )
           })}
-          <div className="self-center mh7">
+          <div className="self-center ma5">
             <IconEqual />
           </div>
-          <div className="self-center">
-            <div>
+          <div className="w-100 mh2 mh6-l w-20-l self-center">
+            <div className="mb5">
               <FormattedMessage
                 {...messages.totalProducts}
                 values={{ total: totalProducts }}
               />
             </div>
-            <div>
+            <div className={`${styles.totalValue} mv5`}>
               <FormattedCurrency value={totalPrice} />
             </div>
-            <BuyButton skuItems={[selectedItem]} />
+            <BuyButton skuItems={cartItems} />
           </div>
         </ProductListProvider>
       </div>
@@ -243,8 +149,16 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
   )
 }
 
-BuyTogether.schema = {
+const EnhancedBuyTogether: StorefrontFunctionComponent<Props> = props => {
+  return (
+    <ProductGroupProvider>
+      <BuyTogether {...props} />
+    </ProductGroupProvider>
+  )
+}
+
+EnhancedBuyTogether.schema = {
   title: 'admin/editor.buy-together.title',
 }
 
-export default BuyTogether
+export default EnhancedBuyTogether
