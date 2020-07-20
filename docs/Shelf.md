@@ -1,24 +1,18 @@
 📢 Use this project, [contribute](https://github.com/vtex-apps/shelf-components) to it or open issues to help evolve it. 
 
-# Default Shelf
+# Shelf
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-The `default-shelf` block allows users to display a list of products in your store.
+The Shelf allows users to display a list of products in your store.
 
 ## Configuration
 
-1. Import the `vtex.shelf-components` app to your theme's dependencies in the `manifest.json`;
+The Shelf block is configured using the [Product Summary List](https://vtex.io/docs/components/all/vtex.product-summary/), the [Product Summary Shelf](https://vtex.io/docs/components/all/vtex.product-summary/) and the [Slider Layout](https://vtex.io/docs/components/all/vtex.slider-layout/) blocks.
 
-```diff
-  "dependencies": {
-+   "vtex.shelf-components": "0.x"
-  }
-```
-
-2. Also add the `ProductSummary` and `Slider-Layout` apps to your theme's dependencies on the `manifest.json`:
+1. Add the `ProductSummary` and `Slider-Layout` apps to your theme's dependencies on the `manifest.json`:
 
 ```diff
   "dependencies": {
@@ -27,23 +21,23 @@ The `default-shelf` block allows users to display a list of products in your sto
   }
 ```
 
-3. Add the `default-shelf` into your theme passing the `product-summary.shelf` and `slider-layout` as in the example below:
+2. Add the `list-context.product-list` into your theme passing the `product-summary.shelf` and `slider-layout` as in the example below:
 
 ```json
   "store.home": {
     "blocks": [
-      "flex-layout.row#default-shelf",
+      "flex-layout.row#shelf",
     ]
   },
-  "flex-layout.row#default-shelf": {
-    "children": ["default-shelf"]
-  },
-  "default-shelf": {
-    "blocks": ["product-summary.shelf"],
-    "children": ["slider-layout#demo-products"],
-    "props": {
-      "orderBy": "OrderByTopSaleDESC"
-    }
+  "product-summary.shelf#demo1": {
+    "children": [
+      "stack-layout#prodsum",
+      "product-summary-name",
+      "product-rating-inline",
+      "product-summary-space",
+      "product-summary-price",
+      "product-summary-buy-button"
+    ]
   },
   "slider-layout#demo-products": {
     "props": {
@@ -56,7 +50,16 @@ The `default-shelf` block allows users to display a list of products in your sto
       "fullWidth": false
     }
   },
+  "list-context.product-list": {
+    "blocks": ["product-summary.shelf#demo1"],
+    "children": ["slider-layout#demo-products"]
+  },
+  "flex-layout.row#shelf": {
+    "children": ["list-context.product-list"]
+  }
 ```
+
+The `list-context.product-list` is the block responsible for performing the GraphQL query that fetches the list of products and its props can be found below:
 
 | Prop name            | Type      | Description                                                                      | Default value      |
 | -------------------- | --------- | -------------------------------------------------------------------------------- | ------------------ |
@@ -66,8 +69,8 @@ The `default-shelf` block allows users to display a list of products in your sto
 | `orderBy`    | `Enum` | Ordination criteria for the `Shelf` listed items. | `undefined`    |
 | `hideUnavailableItems` | `boolean` | Whether unavailable items should be hidden (`true`) or not (`false`) | `false` |
 | `maxItems`   | `number` | Maximum items fetched to be displayed on the `Shelf`.   | `10`                 |
-| `skusFilter` | `Enum` | Whether the total price of items added to the cart should be displayed (`true`) or not (`false`).                 | `ALL_AVAILABLE`              |
-| `installmentCriteria`  | `Enum` | Whether the Buy Button should add products to the minicart when clicked on (`true`) or not (`false`).         | `MAX_WITHOUT_INTEREST`          |
+| `skusFilter` | `Enum` | Control SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be.       | `ALL_AVAILABLE`              |
+| `installmentCriteria`  | `Enum` | Control what price to be shown when price has different installments options.         | `MAX_WITHOUT_INTEREST`          |
 
 Possible values for `orderBy`:
 `OrderByTopSaleDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`.
@@ -84,6 +87,8 @@ Possible values for `installmentCriteria`:
 | ----------- | --------- | ----------------------------------------- | ------------------ |
 | `Id`        | `String`  | Specification filters ID                  | `undefined`        |
 | `value`     | `String`  | Specification filters values              | `undefined`        |
+
+If you want to use the Shelf by sending products from another API, such as a recommendation API, you can simply use the `list-context.product-list-static` block instead of` list-context.product-list` , sending through the props only the array of products you want to display.
 
 <!-- DOCS-IGNORE:start -->
 
