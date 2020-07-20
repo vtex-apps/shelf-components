@@ -1,14 +1,13 @@
 {
   "definitions": {
     "Shelf": {
-      "description": "admin/editor.shelf.description",
+      "title": "admin/editor.shelf.title",
       "type": "object",
       "properties": {
         "category": {
           "title": "admin/editor.productSummaryList.category.title",
           "description": "admin/editor.productSummaryList.category.description",
-          "type": "string",
-          "isLayout": false
+          "type": "string"
         },
         "specificationFilters": {
           "title": "admin/editor.productSummaryList.specificationFilters.title",
@@ -30,20 +29,17 @@
         },
         "collection": {
           "title": "admin/editor.productSummaryList.collection.title",
-          "type": "string",
-          "isLayout": false
+          "type": "string"
         },
         "orderBy": {
           "title": "admin/editor.productSummaryList.orderBy.title",
           "type": "string",
-          "$ref": "#/definitions/OrderByOptions",
-          "isLayout": false
+          "$ref": "#/definitions/OrderByOptions"
         },
         "hideUnavailableItems": {
           "title": "admin/editor.productSummaryList.hideUnavailableItems",
           "type": "boolean",
-          "default": false,
-          "isLayout": false
+          "default": false
         },
         "maxItems": {
           "title": "admin/editor.productSummaryList.maxItems.title",

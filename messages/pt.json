@@ -1,25 +1,3 @@
 {
-  "admin/editor.shelf.title": "Vitrine",
-  "admin/editor.shelf.description": "Description",
-  "admin/editor.shelf.strategy.title": "Estratégia de recomendação",
-  "admin/editor.shelf.secondary-strategy.title": "Estratégia de recomendação secundária",
-  "admin/editor.shelf.strategy.most-viewed-store.label": "Mais vistos da loja",
-  "admin/editor.shelf.strategy.most-viewed-user.label": "Mais vistos por usuário",
-  "admin/editor.shelf.strategy.most-viewed-products.label": "Mais vistos por produto",
-  "admin/editor.shelf.strategy.best-sellers-store.label": "Mais vendidos da loja",
-  "admin/editor.shelf.strategy.best-sellers-user.label": "Mais vendidos por usuário",
-  "admin/editor.shelf.strategy.best-sellers-products.label": "Mais vendidos por produto",
-  "admin/editor.shelf.strategy.offers-store.label": "Ofertas da loja",
-  "admin/editor.shelf.strategy.offers-user.label": "Ofertas por usuário",
-  "admin/editor.shelf.strategy.offers-products.label": "Ofertas por produto",
-  "admin/editor.shelf.strategy.new-releases-store.label": "Lançamentos da loja",
-  "admin/editor.shelf.strategy.new-releases-user.label": "Lançamentos por usuário",
-  "admin/editor.shelf.strategy.new-releases-products.label": "Lançamentos por produto",
-  "admin/editor.shelf.strategy.click-history.label": "Histórico de cliques",
-  "admin/editor.shelf.strategy.navigation-history.label": "Histórico de navegação",
-  "admin/editor.shelf.strategy.order-history.label": "Histórico de pedidos",
-  "admin/editor.shelf.strategy.cart-abandonment.label": "Carrinho abandonado",
-  "admin/editor.shelf.strategy.bought-together.label": "Compraram junto",
-  "admin/editor.shelf.strategy.best-choice.label": "Melhor escolha",
-  "admin/editor.shelf.strategy.similar-products.label": "Produtos similares"
+  "admin/editor.shelf.title": "Vitrine"
 }
