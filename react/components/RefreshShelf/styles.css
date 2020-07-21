@@ -10,6 +10,14 @@
 
 .suggestedProductsTitleContainer {
   height: 40px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.refreshProductTitleContainer {
+  margin: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .suggestedProductsContainer {
@@ -21,9 +29,15 @@
   vertical-align: -webkit-baseline-middle;
 }
 
-@media screen and (min-width: 40em) {
+@media screen and (min-width: 64.125em) {
   .suggestedProductsContainer {
     width: 75%;
+  }
+}
+
+@media screen and (min-width: 40em) and (max-width: 64.124em) {
+  .suggestedProductsContainer {
+    width: 60%;
   }
 }
 

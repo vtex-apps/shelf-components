@@ -4790,6 +4790,9 @@ verror@1.10.0:
 "vtex.format-currency@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.1.4/public/@types/vtex.format-currency":
   version "0.1.4"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.1.4/public/@types/vtex.format-currency#a36aa61ff95701388c0c793b8a7539b0c3d9dcf3"
+"vtex.css-handles@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.2/public/@types/vtex.css-handles":
+  version "0.4.2"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.2/public/@types/vtex.css-handles#62ee61d1bb9efdc919e5cf4bb44fabcf9050d255"
 
 "vtex.messages@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.messages@1.60.2/public/@types/vtex.messages":
   version "1.60.2"
@@ -4830,6 +4833,18 @@ verror@1.10.0:
 "vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.126.0/public/@types/vtex.styleguide":
   version "9.126.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.126.0/public/@types/vtex.styleguide#a2e91aac511eefa04d82d3f44d43c2ad6a16e8f7"
+"vtex.search-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.29.0/public/_types/react":
+  version "0.0.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.29.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+
+"vtex.slider-layout@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.slider-layout@0.11.2/public/@types/vtex.slider-layout":
+  version "0.11.2"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.slider-layout@0.11.2/public/@types/vtex.slider-layout#b37f14b1874f04e1316278b0c7d212631c77279c"
+
+"vtex.store-resources@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.64.0/public/_types/react":
+  version "0.0.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.64.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+
 
 w3c-hr-time@^1.0.1:
   version "1.0.2"

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useLazyQuery } from 'react-apollo'
 import { QueryProducts as productsQuery } from 'vtex.store-resources'
+import { ProductListContext } from 'vtex.product-list-context'
+import { useTreePath } from 'vtex.render-runtime'
 
 import productsByIdentifier from '../../queries/productsByIdentifier.gql'
 import RefreshProductSummary from './RefreshProductSummary'
@@ -45,6 +47,8 @@ interface RefreshShelfProps {
   }
 }
 
+const { ProductListProvider } = ProductListContext
+
 const parseFilters = ({ id, value }: SpecificationFilter) =>
   `specificationFilter_${id}:${value}`
 
@@ -54,6 +58,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   suggestedLists,
   ...props
 }) => {
+  const { treePath } = useTreePath()
   const [current, setCurrent] = useState(0)
   const [queryProducts, { data: productsData, loading }] = useLazyQuery(
     productsQuery
@@ -76,6 +81,10 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
       ? [productsData?.products?.[0]]
       : []
   )
+
+  const treePathList =
+    (typeof treePath === 'string' && treePath.split('/')) || []
+  const trackingId = treePathList[treePathList.length - 1] || 'RefreshShelf'
 
   useEffect(() => {
     if (suggestedProductsData?.productsByIdentifier) {
@@ -185,19 +194,21 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     <div
       className={`flex flex-wrap flex-nowrap-ns justify-around ${styles.refreshShelf}`}
     >
-      <RefreshProductSummary
-        title={baseProductTitle}
-        loading={loading}
-        selected={current}
-        products={baseProducts}
-        onChangeSelected={handleChangeProduct}
-      />
-      <SuggestedProducts
-        title={suggestedProductsTitle}
-        loading={loading ?? true}
-        products={suggestedProducts}
-        sliderProps={props.sliderLayout}
-      />
+      <ProductListProvider listName={trackingId}>
+        <RefreshProductSummary
+          title={baseProductTitle}
+          loading={loading}
+          selected={current}
+          products={baseProducts}
+          onChangeSelected={handleChangeProduct}
+        />
+        <SuggestedProducts
+          title={suggestedProductsTitle}
+          loading={loading ?? true}
+          products={suggestedProducts}
+          sliderProps={props.sliderLayout}
+        />
+      </ProductListProvider>
     </div>
   )
 }

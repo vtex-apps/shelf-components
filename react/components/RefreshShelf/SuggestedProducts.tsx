@@ -4,6 +4,7 @@ import { SliderLayout } from 'vtex.slider-layout'
 import { ProductSummaryListWithoutQuery } from 'vtex.product-summary'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { Loading } from 'vtex.render-runtime'
+import { useCssHandles } from 'vtex.css-handles'
 
 import styles from './styles.css'
 
@@ -24,10 +25,12 @@ const messages = defineMessages({
   },
 })
 
+const CSS_HANDLES = ['suggestedProductsTitleContainer']
+
 const itemsPerPage = {
   desktop: 3,
   phone: 1,
-  tablet: 2,
+  tablet: 1,
 }
 
 const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
@@ -37,6 +40,7 @@ const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
   sliderProps,
 }) => {
   const intl = useIntl()
+  const handles = useCssHandles(CSS_HANDLES)
   const normalizedProducts = useMemo(
     () =>
       products?.length > 0
@@ -50,7 +54,7 @@ const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
   return (
     <div className={styles.suggestedProductsContainer}>
       <div
-        className={`mv4 f4 fw7 ttu v-mid ${styles.suggestedProductsTitleContainer}`}
+        className={`mv4 f4 v-mid ${handles.suggestedProductsTitleContainer}`}
       >
         <span className={styles.suggestedProductsTitle}>
           {title && title !== '' ? title : intl.formatMessage(messages.title)}

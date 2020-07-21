@@ -3,8 +3,8 @@ import { ExtensionPoint, Loading } from 'vtex.render-runtime'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { ButtonWithIcon } from 'vtex.styleguide'
 import { useIntl, defineMessages } from 'react-intl'
+import { useCssHandles } from 'vtex.css-handles'
 
-import styles from './styles.css'
 import IconRefresh from '../../icons/IconRefresh'
 
 interface RefreshProductSummaryProps {
@@ -22,6 +22,8 @@ const messages = defineMessages({
   },
 })
 
+const CSS_HANDLES = ['refreshProductSummary', 'refreshProductTitleContainer']
+
 const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryProps> = ({
   products,
   selected,
@@ -30,6 +32,7 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
   title,
 }) => {
   const intl = useIntl()
+  const handles = useCssHandles(CSS_HANDLES)
   const [selectedProduct, setSelectedProduct] = useState(
     products[selected]
       ? ProductSummary.mapCatalogProductToProductSummary(products[selected])
@@ -50,9 +53,9 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
   }
 
   return (
-    <div className={`tc w-70 w-30-ns w-20-l ${styles.refreshProductSummary}`}>
-      <div className="nowrap mv4">
-        <span className="f4 fw7 ttu mh4 v-mid">
+    <div className={`tc w-70 w-40-ns w-20-l ${handles.refreshProductSummary}`}>
+      <div className={`nowrap f4 ${handles.refreshProductTitleContainer}`}>
+        <span className="v-mid">
           {title && title !== '' ? title : intl.formatMessage(messages.title)}
         </span>
         {products?.length > 1 && (
