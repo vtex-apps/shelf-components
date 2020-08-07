@@ -22,7 +22,18 @@
     "graphql": "^14.6.0",
     "prop-types": "^15.7.2",
     "typescript": "3.8.3",
+    "vtex.add-to-cart-button": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.add-to-cart-button@0.13.5/public/@types/vtex.add-to-cart-button",
+    "vtex.flex-layout": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.flex-layout@0.15.0/public/@types/vtex.flex-layout",
+    "vtex.format-currency": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.1.4/public/@types/vtex.format-currency",
     "vtex.messages": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.messages@1.60.2/public/@types/vtex.messages",
-    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.106.0/public/@types/vtex.render-runtime"
+    "vtex.product-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-context@0.8.1/public/@types/vtex.product-context",
+    "vtex.product-group-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-group-context@0.1.0/public/@types/vtex.product-group-context",
+    "vtex.product-list-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-list-context@0.3.0/public/@types/vtex.product-list-context",
+    "vtex.product-price": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-price@1.5.3/public/@types/vtex.product-price",
+    "vtex.product-summary": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.58.3/public/_types/react",
+    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.111.1/public/@types/vtex.render-runtime",
+    "vtex.responsive-layout": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.responsive-layout@0.1.2/public/@types/vtex.responsive-layout",
+    "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.122.5/public/_types/react",
+    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.126.0/public/@types/vtex.styleguide"
   }
 }

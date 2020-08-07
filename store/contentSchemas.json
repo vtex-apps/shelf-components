@@ -1,0 +1,13 @@
+{
+  "definitions": {
+    "BuyTogether": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "admin/editor.buy-together.title.label",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

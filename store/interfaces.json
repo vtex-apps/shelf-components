@@ -1,0 +1,11 @@
+{
+  "buy-together": {
+    "required": ["product-summary"],
+    "allowed": ["responsive-layout"],
+    "component": "BuyTogether",
+    "composition": "children",
+    "content": {
+      "$ref": "#/definitions/BuyTogether"
+    }
+  }
+}
