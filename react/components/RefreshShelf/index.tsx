@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLazyQuery } from 'react-apollo'
 import { QueryProducts as productsQuery } from 'vtex.store-resources'
-import { ProductListContext } from 'vtex.product-list-context'
-import { useTreePath } from 'vtex.render-runtime'
 
 import productsByIdentifier from '../../queries/productsByIdentifier.gql'
 import RefreshProductSummary from './RefreshProductSummary'
@@ -47,8 +45,6 @@ interface RefreshShelfProps {
   }
 }
 
-const { ProductListProvider } = ProductListContext
-
 const parseFilters = ({ id, value }: SpecificationFilter) =>
   `specificationFilter_${id}:${value}`
 
@@ -58,11 +54,13 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   suggestedLists,
   ...props
 }) => {
-  const { treePath } = useTreePath()
   const [current, setCurrent] = useState(0)
-  const [queryProducts, { data: productsData, loading }] = useLazyQuery(
-    productsQuery
-  )
+  const [
+    queryProducts,
+    { data: productsData, loading, called, refetch },
+  ] = useLazyQuery(productsQuery, {
+    notifyOnNetworkStatusChange: true,
+  })
 
   const [queryBaseProductsByID, { data: baseProductsData }] = useLazyQuery(
     productsByIdentifier
@@ -81,10 +79,6 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
       ? [productsData?.products?.[0]]
       : []
   )
-
-  const treePathList =
-    (typeof treePath === 'string' && treePath.split('/')) || []
-  const trackingId = treePathList[treePathList.length - 1] || 'RefreshShelf'
 
   useEffect(() => {
     if (suggestedProductsData?.productsByIdentifier) {
@@ -110,8 +104,10 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     if (!suggestedLists) {
       return
     }
-    // checar se id n eh string vazia ou undefined ou null
-    const baseIds = suggestedLists.map(list => list.baseProductId)
+
+    const baseIds = suggestedLists
+      .map(list => list.baseProductId)
+      .filter(id => id && id !== '')
 
     if (baseIds.length === 0) {
       return
@@ -126,19 +122,20 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   }, [queryBaseProductsByID, suggestedLists])
 
   useEffect(() => {
+    const executeQuery = (variables: Record<string, any>) =>
+      called ? refetch(variables) : queryProducts({ variables })
+
     if (!suggestedLists || suggestedLists.length === 0) {
-      queryProducts({
-        variables: {
-          category: '',
-          collection: '',
-          specificationFilters: [],
-          orderBy: 'OrderByTopSaleDESC',
-          from: 0,
-          to: 9,
-          hideUnavailableItems: false,
-          skusFilter: 'ALL_AVAILABLE',
-          installmentCriteria: 'MAX_WITHOUT_INTEREST',
-        },
+      executeQuery({
+        category: '',
+        collection: '',
+        specificationFilters: [],
+        orderBy: 'OrderByTopSaleDESC',
+        from: 0,
+        to: 9,
+        hideUnavailableItems: false,
+        skusFilter: 'ALL_AVAILABLE',
+        installmentCriteria: 'MAX_WITHOUT_INTEREST',
       })
       return
     }
@@ -165,25 +162,30 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
         installmentCriteria,
       } = currentList
 
-      queryProducts({
-        variables: {
-          category,
-          ...(collection != null
-            ? {
-                collection,
-              }
-            : {}),
-          specificationFilters: specificationFilters.map(parseFilters),
-          orderBy,
-          from: 0,
-          to: maxItems - 1,
-          hideUnavailableItems,
-          skusFilter,
-          installmentCriteria,
-        },
+      executeQuery({
+        category,
+        ...(collection != null
+          ? {
+              collection,
+            }
+          : {}),
+        specificationFilters: specificationFilters.map(parseFilters),
+        orderBy,
+        from: 0,
+        to: maxItems - 1,
+        hideUnavailableItems,
+        skusFilter,
+        installmentCriteria,
       })
     }
-  }, [current, queryProducts, querySuggestedProductsByID, suggestedLists])
+  }, [
+    current,
+    queryProducts,
+    querySuggestedProductsByID,
+    suggestedLists,
+    called,
+    refetch,
+  ])
 
   const handleChangeProduct = () => {
     const newIndex = current < baseProducts?.length - 1 ? current + 1 : 0
@@ -194,21 +196,19 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     <div
       className={`flex flex-wrap flex-nowrap-ns justify-around ${styles.refreshShelf}`}
     >
-      <ProductListProvider listName={trackingId}>
-        <RefreshProductSummary
-          title={baseProductTitle}
-          loading={loading}
-          selected={current}
-          products={baseProducts}
-          onChangeSelected={handleChangeProduct}
-        />
-        <SuggestedProducts
-          title={suggestedProductsTitle}
-          loading={loading ?? true}
-          products={suggestedProducts}
-          sliderProps={props.sliderLayout}
-        />
-      </ProductListProvider>
+      <RefreshProductSummary
+        title={baseProductTitle}
+        loading={loading}
+        selected={current}
+        products={baseProducts}
+        onChangeSelected={handleChangeProduct}
+      />
+      <SuggestedProducts
+        title={suggestedProductsTitle}
+        loading={loading ?? true}
+        products={suggestedProducts}
+        sliderProps={props.sliderLayout}
+      />
     </div>
   )
 }

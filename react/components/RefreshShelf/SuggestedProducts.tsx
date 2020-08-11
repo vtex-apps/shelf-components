@@ -3,10 +3,10 @@ import { useIntl, defineMessages } from 'react-intl'
 import { SliderLayout } from 'vtex.slider-layout'
 import { ProductSummaryListWithoutQuery } from 'vtex.product-summary'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
-import { Loading } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
 
 import styles from './styles.css'
+import ProductSummaryLoader from './ProductSummaryLoader'
 
 interface Props {
   title?: string
@@ -32,6 +32,20 @@ const itemsPerPage = {
   phone: 1,
   tablet: 1,
 }
+
+const SliderLayoutLoader = () => (
+  <div className="flex mh8">
+    <div className="mr7">
+      <ProductSummaryLoader />
+    </div>
+    <div className="mr7">
+      <ProductSummaryLoader />
+    </div>
+    <div>
+      <ProductSummaryLoader />
+    </div>
+  </div>
+)
 
 const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
   title,
@@ -60,7 +74,7 @@ const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
           {title && title !== '' ? title : intl.formatMessage(messages.title)}
         </span>
       </div>
-      {(loading || !normalizedProducts) && <Loading />}
+      {(loading || !normalizedProducts) && <SliderLayoutLoader />}
       {!loading && normalizedProducts?.length > 0 && (
         <ProductSummaryListWithoutQuery products={normalizedProducts}>
           <SliderLayout

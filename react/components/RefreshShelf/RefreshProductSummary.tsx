@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { ExtensionPoint, Loading } from 'vtex.render-runtime'
+import { ExtensionPoint } from 'vtex.render-runtime'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { ButtonWithIcon } from 'vtex.styleguide'
 import { useIntl, defineMessages } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 
 import IconRefresh from '../../icons/IconRefresh'
+import ProductSummaryLoader from './ProductSummaryLoader'
 
 interface RefreshProductSummaryProps {
   products: any[]
@@ -66,7 +67,7 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
           />
         )}
       </div>
-      {loading && <Loading />}
+      {loading && <ProductSummaryLoader />}
       {!loading && selectedProduct && selectedProduct.productId && (
         <ExtensionPoint id="product-summary" product={selectedProduct} />
       )}
