@@ -69,7 +69,9 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
       </div>
       {loading && <ProductSummaryLoader />}
       {!loading && selectedProduct && selectedProduct.productId && (
-        <ExtensionPoint id="product-summary" product={selectedProduct} />
+        <div>
+          <ExtensionPoint id="product-summary" product={selectedProduct} />
+        </div>
       )}
     </div>
   )

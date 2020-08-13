@@ -4,6 +4,7 @@ import { SliderLayout } from 'vtex.slider-layout'
 import { ProductSummaryListWithoutQuery } from 'vtex.product-summary'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { useCssHandles } from 'vtex.css-handles'
+import { useDevice } from 'vtex.device-detector'
 
 import styles from './styles.css'
 import ProductSummaryLoader from './ProductSummaryLoader'
@@ -53,6 +54,7 @@ const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
   loading,
   sliderProps,
 }) => {
+  const { isMobile } = useDevice()
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
   const normalizedProducts = useMemo(
@@ -74,7 +76,8 @@ const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
           {title && title !== '' ? title : intl.formatMessage(messages.title)}
         </span>
       </div>
-      {(loading || !normalizedProducts) && <SliderLayoutLoader />}
+      {(loading || !normalizedProducts) &&
+        (isMobile ? <ProductSummaryLoader /> : <SliderLayoutLoader />)}
       {!loading && normalizedProducts?.length > 0 && (
         <ProductSummaryListWithoutQuery products={normalizedProducts}>
           <SliderLayout

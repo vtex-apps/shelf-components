@@ -62,14 +62,25 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     notifyOnNetworkStatusChange: true,
   })
 
-  const [queryBaseProductsByID, { data: baseProductsData }] = useLazyQuery(
-    productsByIdentifier
-  )
+  const [
+    queryBaseProductsByID,
+    {
+      data: baseProductsData,
+      loading: baseProductsLoading,
+      called: queryBaseProductsCalled,
+      refetch: baseProductsRefetch,
+    },
+  ] = useLazyQuery(productsByIdentifier, { notifyOnNetworkStatusChange: true })
 
   const [
     querySuggestedProductsByID,
-    { data: suggestedProductsData },
-  ] = useLazyQuery(productsByIdentifier)
+    {
+      data: suggestedProductsData,
+      loading: loadingProductsById,
+      called: calledById,
+      refetch: refetchQueryById,
+    },
+  ] = useLazyQuery(productsByIdentifier, { notifyOnNetworkStatusChange: true })
 
   const [suggestedProducts, setSuggestedProducts] = useState(
     suggestedProductsData?.productsByIdentifier ?? productsData?.products
@@ -113,13 +124,21 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
       return
     }
 
-    queryBaseProductsByID({
-      variables: {
-        field: ProductUniqueIdentifierField.id,
-        values: baseIds,
-      },
+    const executeQuery = (variables: Record<string, any>) =>
+      queryBaseProductsCalled
+        ? baseProductsRefetch(variables)
+        : queryBaseProductsByID({ variables })
+
+    executeQuery({
+      field: ProductUniqueIdentifierField.id,
+      values: baseIds,
     })
-  }, [queryBaseProductsByID, suggestedLists])
+  }, [
+    suggestedLists,
+    queryBaseProductsCalled,
+    queryBaseProductsByID,
+    baseProductsRefetch,
+  ])
 
   useEffect(() => {
     const executeQuery = (variables: Record<string, any>) =>
@@ -143,12 +162,16 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     const currentList = suggestedLists?.[current]
 
     if (currentList?.suggestedProductsIds) {
+      const executeQueryById = (variables: Record<string, any>) =>
+        calledById
+          ? refetchQueryById(variables)
+          : querySuggestedProductsByID({ variables })
+
       const suggestedIds = currentList.suggestedProductsIds.split(',')
-      querySuggestedProductsByID({
-        variables: {
-          field: ProductUniqueIdentifierField.id,
-          values: suggestedIds,
-        },
+
+      executeQueryById({
+        field: ProductUniqueIdentifierField.id,
+        values: suggestedIds,
       })
     } else {
       const {
@@ -179,12 +202,14 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
       })
     }
   }, [
+    suggestedLists,
     current,
+    called,
+    calledById,
     queryProducts,
     querySuggestedProductsByID,
-    suggestedLists,
-    called,
     refetch,
+    refetchQueryById,
   ])
 
   const handleChangeProduct = () => {
@@ -198,14 +223,14 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     >
       <RefreshProductSummary
         title={baseProductTitle}
-        loading={loading}
+        loading={loading || baseProductsLoading || loadingProductsById}
         selected={current}
         products={baseProducts}
         onChangeSelected={handleChangeProduct}
       />
       <SuggestedProducts
         title={suggestedProductsTitle}
-        loading={loading ?? true}
+        loading={(loading || loadingProductsById) ?? true}
         products={suggestedProducts}
         sliderProps={props.sliderLayout}
       />
