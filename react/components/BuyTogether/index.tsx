@@ -7,11 +7,12 @@ import { useTreePath, ExtensionPoint } from 'vtex.render-runtime'
 import { FormattedCurrency } from 'vtex.format-currency'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { ProductGroupContext } from 'vtex.product-group-context'
+import { useCssHandles } from 'vtex.css-handles'
 
 import ProductSummaryWithActions from './ProductSummaryWithActions'
 import IconEqual from '../../icons/IconEqual'
 import styles from './styles.css'
-import { mapSKUItemsToCartItems } from '../../utils'
+import { mapSKUItemsToCartItems, sortItemsByLists } from '../../utils'
 
 const { ProductGroupProvider, useProductGroup } = ProductGroupContext
 
@@ -19,12 +20,6 @@ interface Props {
   title?: string
   suggestedProducts?: Product[][]
   BuyButton: React.ComponentType<{ skuItems: any[] }>
-}
-
-interface SuggestedList {
-  products: Product[]
-  hidden: boolean
-  current: number
 }
 
 const { ProductListProvider } = ProductListContext
@@ -40,11 +35,19 @@ const messages = defineMessages({
   },
 })
 
+const CSS_HANDLES = [
+  'buyTogetherContainer',
+  'buyTogetherTitleContainer',
+  'buyTogetherTitle',
+  'totalValue',
+]
+
 const BuyTogether: StorefrontFunctionComponent<Props> = ({
   title,
   suggestedProducts,
   BuyButton,
 }) => {
+  const handles = useCssHandles(CSS_HANDLES)
   const { product: baseProduct } = useProduct() as any
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { items } = useProductGroup()!
@@ -58,6 +61,13 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
     () => ProductSummary.mapCatalogProductToProductSummary(baseProduct),
     [baseProduct]
   )
+
+  const filteredItems = useMemo(() => {
+    const sortedItems = sortItemsByLists(items, suggestedLists)
+    return sortedItems.filter(
+      (_item, index) => index === 0 || !suggestedLists[index - 1].hidden
+    )
+  }, [items, suggestedLists])
 
   const treePathList =
     (typeof treePath === 'string' && treePath.split('/')) || []
@@ -75,43 +85,53 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
     setSuggestedLists(newSuggestedLists)
   }
 
-  const onDelete = (index: number) => {
-    const newSuggestedLists = suggestedLists.map((list, listIndex) =>
-      listIndex !== index ? list : { ...list, hidden: true }
-    )
+  const onDeleteOrAdd = (index: number) => {
+    let newSuggestedLists = []
+    if (suggestedLists[index].hidden) {
+      newSuggestedLists = suggestedLists.map((list, listIndex) =>
+        listIndex !== index ? list : { ...list, hidden: false }
+      )
+    } else {
+      newSuggestedLists = suggestedLists.map((list, listIndex) =>
+        listIndex !== index ? list : { ...list, hidden: true }
+      )
+    }
     setSuggestedLists(newSuggestedLists)
   }
 
-  const cartItems = useMemo(() => mapSKUItemsToCartItems(items), [items])
+  const cartItems = useMemo(() => {
+    return mapSKUItemsToCartItems(filteredItems)
+  }, [filteredItems])
 
-  const totalProducts = suggestedLists.filter(list => !list.hidden).length + 1
+  const totalProducts = cartItems.length
   const totalPrice = useMemo(() => {
-    return items.reduce((total: number, currentItem: Item) => {
+    return filteredItems.reduce((total: number, currentItem: Item) => {
       if (currentItem.selectedItem.seller?.commertialOffer.Price) {
         return total + currentItem.selectedItem.seller.commertialOffer?.Price
       }
       return total + currentItem.selectedItem.sellers[0].commertialOffer?.Price
     }, 0)
-  }, [items])
+  }, [filteredItems])
 
   return (
-    <div className={`${styles.buyTogether} flex-none tc`}>
-      <span className={`${styles.title} mv4 v-mid`}>
-        {title ?? <FormattedMessage {...messages.title} />}
-      </span>
+    <div className={`flex-none tc ${handles.buyTogetherContainer}`}>
+      <div className={`mv4 v-mid ${handles.buyTogetherTitleContainer}`}>
+        <span className={handles.buyTogetherTitle}>
+          {title ?? <FormattedMessage {...messages.title} />}
+        </span>
+      </div>
       <div className="flex flex-column flex-row-l">
         <ProductListProvider listName={trackingId}>
           <div className="w-100 w-20-l">
             <div className={styles.productSummary} />
-            <ExtensionPoint
-              id="product-summary"
-              product={normalizedBaseProduct}
-            />
+            <div>
+              <ExtensionPoint
+                id="product-summary"
+                product={normalizedBaseProduct}
+              />
+            </div>
           </div>
           {suggestedLists.map((suggestedList, index) => {
-            if (suggestedList.hidden) {
-              return null
-            }
             const { products, current } = suggestedList
             return (
               <Fragment key={`${products[current]?.productId}-${index}`}>
@@ -119,8 +139,9 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
                   <IconPlusLines size={20} />
                 </div>
                 <ProductSummaryWithActions
-                  onDelete={onDelete}
+                  onDeleteOrAdd={onDeleteOrAdd}
                   index={index}
+                  hidden={suggestedList.hidden}
                   hideChangeAction={products.length <= 1}
                   onChangeProduct={onChangeProduct}
                   product={products[current]}
@@ -138,7 +159,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
                 values={{ total: totalProducts }}
               />
             </div>
-            <div className={`${styles.totalValue} mv5`}>
+            <div className={`mv5 ${handles.totalValue}`}>
               <FormattedCurrency value={totalPrice} />
             </div>
             <BuyButton skuItems={cartItems} />

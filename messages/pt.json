@@ -6,6 +6,7 @@
   "admin/editor.buy-together.title.label": "Título",
   "store/shelf.buy-together.change.label": "Mudar",
   "store/shelf.buy-together.remove.label": "Remover",
+  "store/shelf.buy-together.add.label": "Adicionar",
   "store/shelf.buy-together.total-products.label": "Comprar {total} {total, plural, one {produto} other {produtos}} por",
   "admin/editor.shelf.collection.title": "ID da Coleção",
   "admin/editor.refresh-shelf.title": "Vitrine atualizável",

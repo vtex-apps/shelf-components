@@ -35,7 +35,7 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
   const [selectedProduct, setSelectedProduct] = useState(
-    products[selected]
+    products?.[selected]
       ? ProductSummary.mapCatalogProductToProductSummary(products[selected])
       : {}
   )

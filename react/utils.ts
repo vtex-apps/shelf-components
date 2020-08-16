@@ -50,3 +50,39 @@ export const mapSKUItemsToCartItems = (skuItems: Item[]) =>
       referenceId,
     }
   })
+
+export const sortBaseProductsBySuggestedLists = (
+  products: Product[],
+  suggestedLists: SuggestedProductsList[]
+) => {
+  const ids =
+    suggestedLists
+      ?.map(list => list.baseProductId)
+      .filter(id => id && id !== '') ?? []
+  return products?.sort(
+    (a: Product, b: Product) =>
+      ids.indexOf(a.productId) - ids.indexOf(b.productId)
+  )
+}
+
+export const sortProductsBySuggestedIds = (
+  products: Product[],
+  suggestedIds: string[]
+) => {
+  return products?.sort(
+    (a: Product, b: Product) =>
+      suggestedIds.indexOf(a.productId) - suggestedIds.indexOf(b.productId)
+  )
+}
+
+export const sortItemsByLists = (
+  items: Item[],
+  suggestedLists: SuggestedList[]
+) => {
+  const ids = suggestedLists.map(list => list.products[list.current].productId)
+  const copyItems = Object.assign([], items)
+  return copyItems.sort(
+    (a: Item, b: Item) =>
+      ids.indexOf(a.product.productId) - ids.indexOf(b.product.productId)
+  )
+}

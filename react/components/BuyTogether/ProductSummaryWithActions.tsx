@@ -1,16 +1,19 @@
 import React, { useMemo } from 'react'
+import classnames from 'classnames'
 import { FormattedMessage, defineMessages } from 'react-intl'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
-import { ButtonWithIcon, IconClear } from 'vtex.styleguide'
+import { ButtonWithIcon, IconClear, IconPlusLines } from 'vtex.styleguide'
 
 import IconRefresh from '../../icons/IconRefresh'
+import styles from './styles.css'
 
 interface Props {
-  product: any
+  product: Product
   index: number
+  hidden?: boolean
   hideChangeAction?: boolean
-  onDelete: (index: number) => void
+  onDeleteOrAdd: (index: number) => void
   onChangeProduct: (index: number) => void
 }
 
@@ -23,13 +26,18 @@ const messages = defineMessages({
     id: 'store/shelf.buy-together.remove.label',
     defaultMessage: '',
   },
+  addLabel: {
+    id: 'store/shelf.buy-together.add.label',
+    defaultMessage: '',
+  },
 })
 
 const ProductSummaryWithActions: StorefrontFunctionComponent<Props> = ({
   product,
   index,
+  hidden,
   hideChangeAction,
-  onDelete,
+  onDeleteOrAdd,
   onChangeProduct,
 }) => {
   const normalizedProduct = useMemo(
@@ -50,14 +58,20 @@ const ProductSummaryWithActions: StorefrontFunctionComponent<Props> = ({
           </ButtonWithIcon>
         )}
         <ButtonWithIcon
-          icon={<IconClear />}
+          icon={hidden ? <IconPlusLines /> : <IconClear />}
           variation="tertiary"
-          onClick={() => onDelete(index)}
+          onClick={() => onDeleteOrAdd(index)}
         >
-          <FormattedMessage {...messages.removeLabel} />
+          {hidden ? (
+            <FormattedMessage {...messages.addLabel} />
+          ) : (
+            <FormattedMessage {...messages.removeLabel} />
+          )}
         </ButtonWithIcon>
       </div>
-      <ExtensionPoint id="product-summary" product={normalizedProduct} />
+      <div className={classnames({ [styles.disabledProduct]: hidden })}>
+        <ExtensionPoint id="product-summary" product={normalizedProduct} />
+      </div>
     </div>
   )
 }

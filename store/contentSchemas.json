@@ -67,11 +67,6 @@
         "type": "string",
         "isLayout": false
       },
-      "collection": {
-        "title": "admin/editor.shelf.collection.title",
-        "type": "string",
-        "isLayout": false
-      },
       "specificationFilters": {
         "title": "admin/editor.productSummaryList.specificationFilters.title",
         "type": "array",
@@ -89,6 +84,11 @@
             }
           }
         }
+      },
+      "collection": {
+        "title": "admin/editor.shelf.collection.title",
+        "type": "string",
+        "isLayout": false
       },
       "orderBy": {
         "title": "admin/editor.productSummaryList.orderBy.title",

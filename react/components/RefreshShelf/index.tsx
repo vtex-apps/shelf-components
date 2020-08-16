@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useLazyQuery } from 'react-apollo'
 import { QueryProducts as productsQuery } from 'vtex.store-resources'
 
@@ -6,11 +6,10 @@ import productsByIdentifier from '../../queries/productsByIdentifier.gql'
 import RefreshProductSummary from './RefreshProductSummary'
 import SuggestedProducts from './SuggestedProducts'
 import styles from './styles.css'
-
-interface SpecificationFilter {
-  id: string
-  value: string
-}
+import {
+  sortBaseProductsBySuggestedLists,
+  sortProductsBySuggestedIds,
+} from '../../utils'
 
 enum ProductUniqueIdentifierField {
   id = 'id',
@@ -18,19 +17,6 @@ enum ProductUniqueIdentifierField {
   ean = 'ean',
   reference = 'reference',
   sku = 'sku',
-}
-
-interface SuggestedProductsList {
-  baseProductId: string
-  suggestedProductsIds?: string
-  category?: string
-  specificationFilters?: SpecificationFilter[]
-  collection?: string
-  orderBy?: string
-  hideUnavailableItems?: boolean
-  maxItems?: number
-  skusFilter?: string
-  installmentCriteria?: string
 }
 
 interface RefreshShelfProps {
@@ -61,6 +47,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   ] = useLazyQuery(productsQuery, {
     notifyOnNetworkStatusChange: true,
   })
+  const currentList = suggestedLists?.[current]
 
   const [
     queryBaseProductsByID,
@@ -82,34 +69,40 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     },
   ] = useLazyQuery(productsByIdentifier, { notifyOnNetworkStatusChange: true })
 
-  const [suggestedProducts, setSuggestedProducts] = useState(
-    suggestedProductsData?.productsByIdentifier ?? productsData?.products
-  )
-  const [baseProducts, setBaseProducts] = useState(
-    baseProductsData?.productsByIdentifier ?? productsData?.products?.[0]
-      ? [productsData?.products?.[0]]
-      : []
-  )
+  const baseProducts = useMemo(() => {
+    if (!suggestedLists) {
+      return []
+    }
+    if (baseProductsData?.productsByIdentifier) {
+      const sortProducts = sortBaseProductsBySuggestedLists(
+        baseProductsData?.productsByIdentifier,
+        suggestedLists
+      )
+      return sortProducts
+    }
+    if (productsData?.products?.[0]) {
+      return productsData?.products?.[0]
+    }
+  }, [baseProductsData, productsData, suggestedLists])
 
-  useEffect(() => {
-    if (suggestedProductsData?.productsByIdentifier) {
-      setSuggestedProducts(suggestedProductsData.productsByIdentifier)
-      return
+  const suggestedProducts = useMemo(() => {
+    if (!suggestedLists) {
+      return []
+    }
+    if (
+      currentList?.suggestedProductsIds &&
+      suggestedProductsData?.productsByIdentifier
+    ) {
+      const sortProducts = sortProductsBySuggestedIds(
+        suggestedProductsData?.productsByIdentifier,
+        currentList.suggestedProductsIds.split(',')
+      )
+      return sortProducts
     }
     if (productsData?.products) {
-      setSuggestedProducts(productsData.products)
+      return productsData.products
     }
-  }, [productsData, suggestedProductsData])
-
-  useEffect(() => {
-    if (baseProductsData?.productsByIdentifier) {
-      setBaseProducts(baseProductsData.productsByIdentifier)
-      return
-    }
-    if (productsData?.products && productsData.products[0]) {
-      setBaseProducts([productsData.products[0]])
-    }
-  }, [productsData, baseProductsData])
+  }, [productsData, suggestedLists, currentList, suggestedProductsData])
 
   useEffect(() => {
     if (!suggestedLists) {
@@ -159,9 +152,11 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
       return
     }
 
-    const currentList = suggestedLists?.[current]
+    if (!currentList) {
+      return
+    }
 
-    if (currentList?.suggestedProductsIds) {
+    if (currentList.suggestedProductsIds) {
       const executeQueryById = (variables: Record<string, any>) =>
         calledById
           ? refetchQueryById(variables)
@@ -203,7 +198,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     }
   }, [
     suggestedLists,
-    current,
+    currentList,
     called,
     calledById,
     queryProducts,
@@ -230,7 +225,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
       />
       <SuggestedProducts
         title={suggestedProductsTitle}
-        loading={(loading || loadingProductsById) ?? true}
+        loading={baseProductsLoading || loading || loadingProductsById}
         products={suggestedProducts}
         sliderProps={props.sliderLayout}
       />

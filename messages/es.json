@@ -6,6 +6,7 @@
   "admin/editor.buy-together.title.label": "Título",
   "store/shelf.buy-together.change.label": "Cambiar",
   "store/shelf.buy-together.remove.label": "Eliminar",
+  "store/shelf.buy-together.add.label": "Agregar",
   "store/shelf.buy-together.total-products.label": "Comprar {total} {total, plural, one {producto} other {productos}} por",
   "admin/editor.shelf.collection.title": "ID de la Colección",
   "admin/editor.refresh-shelf.title": "Escaparate actualizable",
