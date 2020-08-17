@@ -62,7 +62,7 @@ The `refresh-shelf` block props can be found below:
 | Prop name            | Type      | Description                                                                      | Default value      |
 | -------------------- | --------- | -------------------------------------------------------------------------------- | ------------------ |
 | `baseProductId`   | `String` | ID of the base product to be displayed on the left side of the `Refresh Shelf` |  `undefined`              |
-| `suggestedProductsIds`   | `String` | IDs of the suggested products to be displayed on the right side of the `Refresh Shelf`. The IDs must be separated by a comma (e.g: `1,2,3`) and if this prop is filled, all the other props for the query mentioned bellow will be ignored. |  `undefined`              |
+| `suggestedProductsIds`   | `String` | IDs of the suggested products to be displayed on the right side of the `Refresh Shelf`. The IDs must be separated by a comma (e.g: `1,2,3`) and if this prop is filled, all the other props for the query mentioned below will be ignored. |  `undefined`              |
 | `category`   | `String` | Category ID of the `Refresh Shelf` suggested products. For sub-categories, use `/` before the ID to indicate which category it belongs to. For example: `"1/2"`, considering 2 as a sub-category ID)        |  `undefined`              |
 | `specificationFilters`     | `Array`  | Specification Filters of the `Refresh Shelf` suggested products.     | `undefined` |
 | `collection` | `String` | Collection ID of the `Refresh Shelf` suggested products                            | `undefined`              |
