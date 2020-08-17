@@ -4822,9 +4822,9 @@ verror@1.10.0:
   version "0.8.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-context@0.8.1/public/@types/vtex.product-context#67d5bb6be4467bde92dfd2d3d5ee52c591f6dc37"
 
-"vtex.product-group-context@https://thalyta4--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.product-group-context@0.1.0+build1596825752/public/@types/vtex.product-group-context":
-  version "0.1.0"
-  resolved "https://thalyta4--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.product-group-context@0.1.0+build1596825752/public/@types/vtex.product-group-context#85ece4ef73173dd566d2265bb73c99459f1e2516"
+"vtex.product-group-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-group-context@0.2.0/public/@types/vtex.product-group-context":
+  version "0.2.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-group-context@0.2.0/public/@types/vtex.product-group-context#8543c6a796eb4b2a085facb5e5b33a756d64a46b"
 
 "vtex.product-list-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-list-context@0.3.0/public/@types/vtex.product-list-context":
   version "0.3.0"

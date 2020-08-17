@@ -64,9 +64,15 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
 
   const filteredItems = useMemo(() => {
     const sortedItems = sortItemsByLists(items, suggestedLists)
-    return sortedItems.filter(
-      (_item, index) => index === 0 || !suggestedLists[index - 1].hidden
-    )
+    return sortedItems.filter((item, index) => {
+      if (index === 0) {
+        return true
+      }
+      if (item.quantity === 1) {
+        return !suggestedLists[index - 1].hidden
+      }
+      return !(suggestedLists[index - 1].hidden && suggestedLists[index].hidden)
+    })
   }, [items, suggestedLists])
 
   const treePathList =
