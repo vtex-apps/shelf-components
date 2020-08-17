@@ -80,7 +80,7 @@ export const sortItemsByLists = (
   suggestedLists: SuggestedList[]
 ) => {
   const ids = suggestedLists.map(list => list.products[list.current].productId)
-  const copyItems = Object.assign([], items)
+  const copyItems: Item[] = Object.assign([], items)
   return copyItems.sort(
     (a: Item, b: Item) =>
       ids.indexOf(a.product.productId) - ids.indexOf(b.product.productId)

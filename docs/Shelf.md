@@ -1,5 +1,3 @@
-📢 Use this project, [contribute](https://github.com/vtex-apps/shelf-components) to it or open issues to help evolve it. 
-
 # Shelf
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->

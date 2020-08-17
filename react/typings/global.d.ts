@@ -41,6 +41,7 @@ declare global {
   }
 
   interface Item {
+    quantity: number
     product: Product
     selectedItem: SKU
   }
