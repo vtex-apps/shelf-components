@@ -6,5 +6,18 @@
   "admin/editor.buy-together.title.label": "Título",
   "store/shelf.buy-together.change.label": "Mudar",
   "store/shelf.buy-together.remove.label": "Remover",
-  "store/shelf.buy-together.total-products.label": "Comprar {total} {total, plural, one {produto} other {produtos}} por"
+  "store/shelf.buy-together.add.label": "Adicionar",
+  "store/shelf.buy-together.total-products.label": "Comprar {total} {total, plural, one {produto} other {produtos}} por",
+  "admin/editor.shelf.collection.title": "ID da Coleção",
+  "admin/editor.refresh-shelf.title": "Vitrine atualizável",
+  "admin/editor.refresh-shelf.base-product.label": "Título do produto base",
+  "admin/editor.refresh-shelf.suggested-products.label": "Título dos produtos sugeridos",
+  "admin/editor.refresh-shelf.slider-layout.title": "Slider Layout",
+  "admin/editor.refresh-shelf.suggested-products-list.title": "Listas de produtos sugeridos",
+  "admin/editor.refresh-shelf.suggested-products-list.description": "Importante: se você preencher o campo 'IDs dos produtos sugeridos', todos os campos abaixo deste serão ignorados (ID da categoria, collection, etc.)",
+  "admin/editor.refresh-shelf.suggested-products-list.base-product.title": "ID do produto base",
+  "admin/editor.refresh-shelf.suggested-products-list.suggested-products.title": "IDs dos produtos sugeridos",
+  "admin/editor.refresh-shelf.suggested-products-list.suggested-products.description": "Os IDs devem estar separados por vírgula (ex. 1,2,3)",
+  "store/shelf.refresh.refresh-product-summary.title": "Você viu",
+  "store/shelf.refresh.suggested-products.title": "Sugeridos para você"
 }

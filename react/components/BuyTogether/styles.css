@@ -1,5 +1,5 @@
 .productSummary {
-  padding-bottom: 2.5rem;
+  padding-bottom: 3rem;
 }
 
 .totalValue {
@@ -7,12 +7,17 @@
   font-weight: 600;
 }
 
-.title {
+.buyTogetherTitle {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 1.25rem;
 }
 
-.buyTogether {
+.buyTogetherContainer {
   padding-bottom: 2.5rem;
+}
+
+.disabledProduct {
+  opacity: 50%;
+  pointer-events: none;
 }

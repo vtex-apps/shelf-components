@@ -11,6 +11,8 @@ declare global {
     brandId: number
     cacheId: string
     categories: string[]
+    categoryTree?: Array<{ slug: string }>
+    description?: string
     items: SKU[]
     link: string
     linkText: string
@@ -39,6 +41,7 @@ declare global {
   }
 
   interface Item {
+    quantity: number
     product: Product
     selectedItem: SKU
   }
@@ -90,5 +93,29 @@ declare global {
     NumberOfInstallments: number
     TotalValuePlusInterestRate: number
     Value: number
+  }
+
+  interface SpecificationFilter {
+    id: string
+    value: string
+  }
+
+  interface SuggestedProductsList {
+    baseProductId: string
+    suggestedProductsIds?: string
+    category?: string
+    specificationFilters?: SpecificationFilter[]
+    collection?: string
+    orderBy?: string
+    hideUnavailableItems?: boolean
+    maxItems?: number
+    skusFilter?: string
+    installmentCriteria?: string
+  }
+
+  interface SuggestedList {
+    products: Product[]
+    hidden: boolean
+    current: number
   }
 }

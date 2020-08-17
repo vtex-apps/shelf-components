@@ -1,10 +1,10 @@
+📢 Use this project, [contribute](https://github.com/vtex-apps/shelf-components) to it or open issues to help evolve it. 
+
 # Shelf Components
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-## Description
 
 VTEX Shelf Components is a collection of components that can be used to create shelves in your store, which are responsible for displaying a list of products.
 
@@ -57,6 +57,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 Below we have a README for each component of this project that explains how to use them.
 
 - [Shelf](Shelf.md)
+- [Refresh Shelf](RefreshShelf.md)
 
 ## Troubleshooting
 

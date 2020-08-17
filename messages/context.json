@@ -6,5 +6,18 @@
   "admin/editor.buy-together.title.label": "Buy Together title label",
   "store/shelf.buy-together.change.label": "Change label",
   "store/shelf.buy-together.remove.label": "Remove label",
-  "store/shelf.buy-together.total-products.label": "Total products label"
+  "store/shelf.buy-together.add.label": "Add label",
+  "store/shelf.buy-together.total-products.label": "Total products label",
+  "admin/editor.shelf.collection.title": "Collection title",
+  "admin/editor.refresh-shelf.title": "Refresh Shelf title",
+  "admin/editor.refresh-shelf.base-product.label": "Base Product Title label",
+  "admin/editor.refresh-shelf.suggested-products.label": "Suggested Products Title label",
+  "admin/editor.refresh-shelf.slider-layout.title": "Slider Layout title",
+  "admin/editor.refresh-shelf.suggested-products-list.title": "Suggested products list title",
+  "admin/editor.refresh-shelf.suggested-products-list.description": "Description for suggested products list",
+  "admin/editor.refresh-shelf.suggested-products-list.base-product.title": "Base product title",
+  "admin/editor.refresh-shelf.suggested-products-list.suggested-products.title": "Suggested products title",
+  "admin/editor.refresh-shelf.suggested-products-list.suggested-products.description": "Suggested products description",
+  "store/shelf.refresh.refresh-product-summary.title": "Refresh Product Summary title",
+  "store/shelf.refresh.suggested-products.title": "Refresh Suggested Products title"
 }

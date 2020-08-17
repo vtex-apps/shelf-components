@@ -118,10 +118,26 @@
     }
   },
 
+  "product-summary.shelf": {
+    "children": [
+      "product-summary-image#shelf",
+      "product-summary-name",
+      "product-summary-space",
+      "product-list-price#summary",
+      "flex-layout.row#selling-price-savings",
+      "product-installments#summary",
+      "add-to-cart-button"
+    ]
+  },
+
   "buy-together": {
     "blocks": ["product-summary.shelf#buy-together"],
     "props": {
       "BuyButton": "add-to-cart-button#my-add-to-cart"
     }
+  },
+
+  "refresh-shelf": {
+    "blocks": ["product-summary.shelf"]
   }
 }

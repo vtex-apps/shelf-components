@@ -6,5 +6,18 @@
   "admin/editor.buy-together.title.label": "Título",
   "store/shelf.buy-together.change.label": "Cambiar",
   "store/shelf.buy-together.remove.label": "Eliminar",
-  "store/shelf.buy-together.total-products.label": "Comprar {total} {total, plural, one {producto} other {productos}} por"
+  "store/shelf.buy-together.add.label": "Agregar",
+  "store/shelf.buy-together.total-products.label": "Comprar {total} {total, plural, one {producto} other {productos}} por",
+  "admin/editor.shelf.collection.title": "ID de la Colección",
+  "admin/editor.refresh-shelf.title": "Escaparate actualizable",
+  "admin/editor.refresh-shelf.base-product.label": "Título del producto base",
+  "admin/editor.refresh-shelf.suggested-products.label": "Título de productos sugeridos",
+  "admin/editor.refresh-shelf.slider-layout.title": "Slider Layout",
+  "admin/editor.refresh-shelf.suggested-products-list.title": "Listas de productos sugeridos",
+  "admin/editor.refresh-shelf.suggested-products-list.description": "Importante: si completa el campo 'ID de productos sugeridos', se ignorarán todos los demás campos debajo de este (ID de categoría, colección, etc.)",
+  "admin/editor.refresh-shelf.suggested-products-list.base-product.title": "ID del producto base",
+  "admin/editor.refresh-shelf.suggested-products-list.suggested-products.title": "ID de productos sugeridos",
+  "admin/editor.refresh-shelf.suggested-products-list.suggested-products.description": "Los IDs deben estar separados por una coma (p. ej. 1,2,3)",
+  "store/shelf.refresh.refresh-product-summary.title": "Has visto",
+  "store/shelf.refresh.suggested-products.title": "Sugeridos para ti"
 }

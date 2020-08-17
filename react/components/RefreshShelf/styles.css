@@ -1,0 +1,48 @@
+.refreshProductSummary {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.refreshShelf {
+  margin-bottom: 25px;
+}
+
+.suggestedProductsTitleContainer {
+  height: 40px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.refreshProductTitleContainer {
+  margin: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.suggestedProductsContainer {
+  max-width: -webkit-fill-available;
+  text-align: center;
+}
+
+.suggestedProductsTitle {
+  vertical-align: -webkit-baseline-middle;
+}
+
+@media screen and (min-width: 64.125em) {
+  .suggestedProductsContainer {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 40em) and (max-width: 64.124em) {
+  .suggestedProductsContainer {
+    width: 60%;
+  }
+}
+
+
+.slide {
+  margin-bottom: 25px;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
