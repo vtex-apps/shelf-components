@@ -17,6 +17,7 @@
   margin: 0.75rem;
   text-transform: uppercase;
   font-weight: 600;
+  height: 40px;
 }
 
 .suggestedProductsContainer {
@@ -25,6 +26,10 @@
 }
 
 .suggestedProductsTitle {
+  vertical-align: -webkit-baseline-middle;
+}
+
+.refreshProductTitle {
   vertical-align: -webkit-baseline-middle;
 }
 

@@ -7,6 +7,7 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import IconRefresh from '../../icons/IconRefresh'
 import ProductSummaryLoader from './ProductSummaryLoader'
+import styles from './styles.css'
 
 interface RefreshProductSummaryProps {
   products: any[]
@@ -55,8 +56,10 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
 
   return (
     <div className={`tc w-70 w-40-ns w-20-l ${handles.refreshProductSummary}`}>
-      <div className={`nowrap f4 ${handles.refreshProductTitleContainer}`}>
-        <span className="v-mid">
+      <div
+        className={`nowrap mv4 f4 v-mid ${handles.refreshProductTitleContainer}`}
+      >
+        <span className={styles.refreshProductTitle}>
           {title && title !== '' ? title : intl.formatMessage(messages.title)}
         </span>
         {products?.length > 1 && (

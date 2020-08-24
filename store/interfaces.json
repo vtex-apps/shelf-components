@@ -14,5 +14,12 @@
     "content": {
       "$ref": "#/definitions/RefreshShelf"
     }
+  },
+  "default-shelf": {
+    "required": ["list-context.product-list"],
+    "component": "Shelf",
+    "content": {
+      "$ref": "#/definitions/Shelf"
+    }
   }
 }

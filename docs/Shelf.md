@@ -8,18 +8,30 @@ The Shelf allows users to display a list of products in your store.
 
 ## Configuration
 
-The Shelf block is configured using the [Product Summary List](https://vtex.io/docs/components/all/vtex.product-summary/), the [Product Summary Shelf](https://vtex.io/docs/components/all/vtex.product-summary/) and the [Slider Layout](https://vtex.io/docs/components/all/vtex.slider-layout/) blocks.
+The Shelf block is configured using the [Product Summary List](https://vtex.io/docs/components/all/vtex.product-summary/) and the [Slider Layout](https://vtex.io/docs/components/all/vtex.slider-layout/) blocks.
 
-1. Add the `ProductSummary` and `Slider-Layout` apps to your theme's dependencies on the `manifest.json`:
+1. Add the `Shelf-components` app to your theme's dependencies on the `manifest.json`:
 
 ```diff
   "dependencies": {
-+   "vtex.product-summary": "2.x",
-+   "vtex.slider-layout": "0.x"
++   "vtex.shelf-components": "0.x"
   }
 ```
 
-2. Add the `list-context.product-list` into your theme passing the `product-summary.shelf` and `slider-layout` as in the example below:
+2. Add the `default-shelf` into your theme. 
+
+```json
+  "store.home": {
+    "blocks": [
+      "flex-layout.row#shelf",
+    ]
+  },
+  "flex-layout.row#shelf": {
+    "children": ["default-shelf"]
+  },
+```
+
+If you want to further customize your list, you can pass your own `list-context.product-list` as in the example below:
 
 ```json
   "store.home": {
@@ -53,7 +65,10 @@ The Shelf block is configured using the [Product Summary List](https://vtex.io/d
     "children": ["slider-layout#demo-products"]
   },
   "flex-layout.row#shelf": {
-    "children": ["list-context.product-list"]
+    "children": ["default-shelf"]
+  },
+  "default-shelf": {
+    "blocks": ["list-context.product-list"]
   }
 ```
 

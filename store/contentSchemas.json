@@ -1,10 +1,19 @@
 {
   "definitions": {
+    "Shelf": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "admin/editor.title.label",
+          "type": "string"
+        }
+      }
+    },
     "BuyTogether": {
       "type": "object",
       "properties": {
         "title": {
-          "title": "admin/editor.buy-together.title.label",
+          "title": "admin/editor.title.label",
           "type": "string"
         }
       }
