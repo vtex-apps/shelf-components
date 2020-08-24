@@ -1,9 +1,5 @@
 # Shelf
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 The Shelf allows users to display a list of products in your store.
 
 ## Configuration
@@ -103,20 +99,11 @@ Possible values for `installmentCriteria`:
 
 If you want to use the Shelf by sending products from another API, such as a recommendation API, you can simply use the `list-context.product-list-static` block instead of` list-context.product-list` , sending through the props only the array of products you want to display.
 
-<!-- DOCS-IGNORE:start -->
+## Customization
 
-## Contributors ✨
+In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
 
-Thanks goes to these wonderful people:
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
-
-<!-- DOCS-IGNORE:end -->
+| CSS Handles           |
+| --------------------- |
+| `shelfTitleContainer` |
+| `shelfTitle`          |
