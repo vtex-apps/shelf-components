@@ -1,25 +1,33 @@
 # Shelf
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 The Shelf allows users to display a list of products in your store.
 
 ## Configuration
 
-The Shelf block is configured using the [Product Summary List](https://vtex.io/docs/components/all/vtex.product-summary/), the [Product Summary Shelf](https://vtex.io/docs/components/all/vtex.product-summary/) and the [Slider Layout](https://vtex.io/docs/components/all/vtex.slider-layout/) blocks.
+The Shelf block is configured using the [Product Summary List](https://vtex.io/docs/components/all/vtex.product-summary/) and the [Slider Layout](https://vtex.io/docs/components/all/vtex.slider-layout/) blocks.
 
-1. Add the `ProductSummary` and `Slider-Layout` apps to your theme's dependencies on the `manifest.json`:
+1. Add the `Shelf-components` app to your theme's dependencies on the `manifest.json`:
 
 ```diff
   "dependencies": {
-+   "vtex.product-summary": "2.x",
-+   "vtex.slider-layout": "0.x"
++   "vtex.shelf-components": "0.x"
   }
 ```
 
-2. Add the `list-context.product-list` into your theme passing the `product-summary.shelf` and `slider-layout` as in the example below:
+2. Add the `default-shelf` into your theme. 
+
+```json
+  "store.home": {
+    "blocks": [
+      "flex-layout.row#shelf",
+    ]
+  },
+  "flex-layout.row#shelf": {
+    "children": ["default-shelf"]
+  },
+```
+
+If you want to further customize your list, you can pass your own `list-context.product-list` as in the example below:
 
 ```json
   "store.home": {
@@ -53,7 +61,10 @@ The Shelf block is configured using the [Product Summary List](https://vtex.io/d
     "children": ["slider-layout#demo-products"]
   },
   "flex-layout.row#shelf": {
-    "children": ["list-context.product-list"]
+    "children": ["default-shelf"]
+  },
+  "default-shelf": {
+    "blocks": ["list-context.product-list"]
   }
 ```
 
@@ -88,20 +99,11 @@ Possible values for `installmentCriteria`:
 
 If you want to use the Shelf by sending products from another API, such as a recommendation API, you can simply use the `list-context.product-list-static` block instead of` list-context.product-list` , sending through the props only the array of products you want to display.
 
-<!-- DOCS-IGNORE:start -->
+## Customization
 
-## Contributors ✨
+In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
 
-Thanks goes to these wonderful people:
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
-
-<!-- DOCS-IGNORE:end -->
+| CSS Handles           |
+| --------------------- |
+| `shelfTitleContainer` |
+| `shelfTitle`          |

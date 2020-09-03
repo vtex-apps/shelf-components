@@ -130,6 +130,29 @@
     ]
   },
 
+  "slider-layout#shelf": {
+    "props": {
+      "itemsPerPage": {
+        "desktop": 5,
+        "tablet": 3,
+        "phone": 1
+      },
+      "infinite": true,
+      "fullWidth": false,
+      "blockClass": "shelf"
+    }
+  },
+
+  "list-context.product-list": {
+    "blocks": ["product-summary.shelf"],
+    "children": ["slider-layout#shelf"]
+  },
+
+  "list-context.product-list-static": {
+    "blocks": ["product-summary.shelf"],
+    "children": ["slider-layout#shelf"]
+  },
+
   "buy-together": {
     "blocks": ["product-summary.shelf#buy-together"],
     "props": {
@@ -139,5 +162,9 @@
 
   "refresh-shelf": {
     "blocks": ["product-summary.shelf"]
+  },
+
+  "default-shelf": {
+    "blocks": ["list-context.product-list", "list-context.product-list-static"]
   }
 }

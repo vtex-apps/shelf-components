@@ -123,7 +123,11 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
     <div className={`flex-none tc ${handles.buyTogetherContainer}`}>
       <div className={`mv4 v-mid ${handles.buyTogetherTitleContainer}`}>
         <span className={handles.buyTogetherTitle}>
-          {title ?? <FormattedMessage {...messages.title} />}
+          {title && title !== '' ? (
+            title
+          ) : (
+            <FormattedMessage {...messages.title} />
+          )}
         </span>
       </div>
       <div className="flex flex-column flex-row-l">
