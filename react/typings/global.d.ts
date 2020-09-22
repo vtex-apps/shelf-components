@@ -113,6 +113,11 @@ declare global {
     installmentCriteria?: string
   }
 
+  interface RecommendedList {
+    base: Product[]
+    recommended: Product[]
+  }
+
   interface SuggestedList {
     products: Product[]
     hidden: boolean
