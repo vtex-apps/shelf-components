@@ -118,7 +118,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   ])
 
   useEffect(() => {
-    if (!suggestedLists) {
+    if (!suggestedLists || recommendedLists) {
       return
     }
 
@@ -141,6 +141,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     })
   }, [
     suggestedLists,
+    recommendedLists,
     queryBaseProductsCalled,
     queryBaseProductsByID,
     baseProductsRefetch,
@@ -150,7 +151,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     const executeQuery = (variables: Record<string, any>) =>
       called ? refetch(variables) : queryProducts({ variables })
 
-    if (!suggestedLists || suggestedLists.length === 0) {
+    if (!suggestedLists || suggestedLists.length === 0 || recommendedLists) {
       executeQuery({
         category: '',
         collection: '',
@@ -211,6 +212,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     }
   }, [
     suggestedLists,
+    recommendedLists,
     currentList,
     called,
     calledById,
@@ -241,6 +243,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
         loading={baseProductsLoading || loading || loadingProductsById}
         products={suggestedProducts}
         sliderProps={props.sliderLayout}
+        key={baseProducts?.[current].productId}
       />
     </div>
   )
