@@ -23,8 +23,7 @@ interface RefreshShelfProps {
   baseProductTitle?: string
   suggestedProductsTitle?: string
   suggestedLists?: SuggestedProductsList[]
-  baseProducts?: string[]
-  recommendedProducts?: any[]
+  recommendedLists?: RecommendedList[]
   sliderLayout: {
     showNavigationArrows: string
     showPaginationDots: string
@@ -38,6 +37,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   baseProductTitle,
   suggestedProductsTitle,
   suggestedLists,
+  recommendedLists,
   ...props
 }) => {
   const [current, setCurrent] = useState(0)
@@ -70,6 +70,9 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   ] = useLazyQuery(productsByIdentifier, { notifyOnNetworkStatusChange: true })
 
   const baseProducts = useMemo(() => {
+    if (recommendedLists) {
+      return recommendedLists.map((list: RecommendedList) => list.base[0])
+    }
     if (!suggestedLists) {
       return []
     }
@@ -83,9 +86,12 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     if (productsData?.products?.[0]) {
       return productsData?.products?.[0]
     }
-  }, [baseProductsData, productsData, suggestedLists])
+  }, [baseProductsData, productsData, suggestedLists, recommendedLists])
 
   const suggestedProducts = useMemo(() => {
+    if (recommendedLists) {
+      return recommendedLists[current].recommended
+    }
     if (!suggestedLists) {
       return []
     }
@@ -102,10 +108,17 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     if (productsData?.products) {
       return productsData.products
     }
-  }, [productsData, suggestedLists, currentList, suggestedProductsData])
+  }, [
+    productsData,
+    suggestedLists,
+    recommendedLists,
+    current,
+    currentList,
+    suggestedProductsData,
+  ])
 
   useEffect(() => {
-    if (!suggestedLists) {
+    if (!suggestedLists || recommendedLists) {
       return
     }
 
@@ -128,6 +141,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     })
   }, [
     suggestedLists,
+    recommendedLists,
     queryBaseProductsCalled,
     queryBaseProductsByID,
     baseProductsRefetch,
@@ -137,7 +151,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     const executeQuery = (variables: Record<string, any>) =>
       called ? refetch(variables) : queryProducts({ variables })
 
-    if (!suggestedLists || suggestedLists.length === 0) {
+    if (!suggestedLists || suggestedLists.length === 0 || recommendedLists) {
       executeQuery({
         category: '',
         collection: '',
@@ -198,6 +212,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     }
   }, [
     suggestedLists,
+    recommendedLists,
     currentList,
     called,
     calledById,
@@ -228,6 +243,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
         loading={baseProductsLoading || loading || loadingProductsById}
         products={suggestedProducts}
         sliderProps={props.sliderLayout}
+        key={baseProducts?.[current].productId}
       />
     </div>
   )

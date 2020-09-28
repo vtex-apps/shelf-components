@@ -10,7 +10,7 @@ import ProductSummaryLoader from './ProductSummaryLoader'
 import styles from './styles.css'
 
 interface RefreshProductSummaryProps {
-  products: any[]
+  products: Product[]
   selected: number
   loading: boolean
   onChangeSelected?: () => void
@@ -72,7 +72,7 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
       </div>
       {loading && <ProductSummaryLoader />}
       {!loading && selectedProduct && selectedProduct.productId && (
-        <div>
+        <div key={selectedProduct.productId}>
           <ExtensionPoint id="product-summary" product={selectedProduct} />
         </div>
       )}

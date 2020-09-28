@@ -34,10 +34,16 @@ declare global {
     lowPrice: number
   }
 
+  interface SpecificationGroupProperty {
+    originalName: string
+    name: string
+    values: string[]
+  }
+
   interface SpecificationGroup {
     name?: string
     originalName?: string
-    specifications?: any[]
+    specifications?: SpecificationGroupProperty[]
   }
 
   interface Item {
@@ -111,6 +117,11 @@ declare global {
     maxItems?: number
     skusFilter?: string
     installmentCriteria?: string
+  }
+
+  interface RecommendedList {
+    base: Product[]
+    recommended: Product[]
   }
 
   interface SuggestedList {

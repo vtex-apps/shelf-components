@@ -115,7 +115,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
       if (currentItem.selectedItem.seller?.commertialOffer.Price) {
         return total + currentItem.selectedItem.seller.commertialOffer?.Price
       }
-      return total + currentItem.selectedItem.sellers[0].commertialOffer?.Price
+      return total + currentItem.selectedItem.sellers[0]?.commertialOffer?.Price
     }, 0)
   }, [filteredItems])
 
