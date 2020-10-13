@@ -1,4 +1,6 @@
-export const mapSKUItemsToCartItems = (skuItems: Item[]) =>
+export const mapSKUItemsToCartItems = (
+  skuItems: Item[]
+): Array<CartItem | null> =>
   skuItems.map(item => {
     const {
       selectedItem: {
@@ -21,6 +23,10 @@ export const mapSKUItemsToCartItems = (skuItems: Item[]) =>
     } = item
     const selectedSeller = seller ?? sellers[0]
 
+    if (!selectedSeller) {
+      return null
+    }
+
     return {
       id: itemId,
       productId,
@@ -31,13 +37,13 @@ export const mapSKUItemsToCartItems = (skuItems: Item[]) =>
       brand,
       category: categories && categories.length > 0 ? categories[0] : '',
       productRefId: productReference,
-      seller: selectedSeller?.sellerId,
+      seller: selectedSeller.sellerId,
       variant: name,
       skuName: name,
-      price: selectedSeller?.commertialOffer.PriceWithoutDiscount * 100,
-      listPrice: selectedSeller?.commertialOffer.ListPrice * 100,
-      sellingPrice: selectedSeller?.commertialOffer.Price * 100,
-      sellingPriceWithAssemblies: selectedSeller?.commertialOffer.Price * 100,
+      price: selectedSeller.commertialOffer.PriceWithoutDiscount * 100,
+      listPrice: selectedSeller.commertialOffer.ListPrice * 100,
+      sellingPrice: selectedSeller.commertialOffer.Price * 100,
+      sellingPriceWithAssemblies: selectedSeller.commertialOffer.Price * 100,
       measurementUnit,
       skuSpecifications: [],
       imageUrl: images[0]?.imageUrl,
@@ -45,7 +51,7 @@ export const mapSKUItemsToCartItems = (skuItems: Item[]) =>
       assemblyOptions: {
         added: [],
         removed: [],
-        parentPrice: selectedSeller?.commertialOffer.Price,
+        parentPrice: selectedSeller.commertialOffer.Price,
       },
       referenceId,
     }

@@ -52,6 +52,38 @@ declare global {
     selectedItem: SKU
   }
 
+  interface CartItem {
+    id: string
+    productId: string
+    quantity: number
+    uniqueId: string
+    detailUrl: string
+    name: string
+    brand: string
+    category: string
+    productRefId: string
+    seller: string
+    variant: string
+    skuName: string
+    price: number
+    listPrice: number
+    sellingPrice: number
+    sellingPriceWithAssemblies: number
+    measurementUnit: string
+    skuSpecifications: any[]
+    imageUrl: string
+    options: any[]
+    assemblyOptions: {
+      added: any[]
+      removed: any[]
+      parentPrice: number
+    }
+    referenceId: Array<{
+      Key: string
+      Value: string
+    }> | null
+  }
+
   interface SKU {
     ean?: string
     images: Array<{
