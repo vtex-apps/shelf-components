@@ -26,11 +26,11 @@
 }
 
 .suggestedProductsTitle {
-  vertical-align: -webkit-baseline-middle;
+  vertical-align: middle;
 }
 
 .refreshProductTitle {
-  vertical-align: -webkit-baseline-middle;
+  vertical-align: middle;
 }
 
 @media screen and (min-width: 64.125em) {
