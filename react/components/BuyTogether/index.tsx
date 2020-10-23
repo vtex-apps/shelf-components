@@ -19,7 +19,7 @@ const { ProductGroupProvider, useProductGroup } = ProductGroupContext
 interface Props {
   title?: string
   suggestedProducts?: Product[][]
-  BuyButton: React.ComponentType<{ skuItems: any[] }>
+  BuyButton: React.ComponentType<{ skuItems: CartItem[] }>
 }
 
 const { ProductListProvider } = ProductListContext
@@ -41,6 +41,8 @@ const CSS_HANDLES = [
   'buyTogetherTitle',
   'totalValue',
 ]
+
+const notNull = (item: CartItem | null): item is CartItem => item !== null
 
 const BuyTogether: StorefrontFunctionComponent<Props> = ({
   title,
@@ -106,18 +108,15 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
   }
 
   const cartItems = useMemo(() => {
-    return mapSKUItemsToCartItems(filteredItems)
+    return mapSKUItemsToCartItems(filteredItems).filter(notNull)
   }, [filteredItems])
 
   const totalProducts = cartItems.length
   const totalPrice = useMemo(() => {
-    return filteredItems.reduce((total: number, currentItem: Item) => {
-      if (currentItem.selectedItem.seller?.commertialOffer.Price) {
-        return total + currentItem.selectedItem.seller.commertialOffer?.Price
-      }
-      return total + currentItem.selectedItem.sellers[0]?.commertialOffer?.Price
+    return cartItems.reduce((total: number, currentItem: CartItem) => {
+      return total + currentItem.price / 100
     }, 0)
-  }, [filteredItems])
+  }, [cartItems])
 
   return (
     <div className={`flex-none tc ${handles.buyTogetherContainer}`}>

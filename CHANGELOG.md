@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Add to cart with unavailable items.
+
 ## [0.5.0] - 2020-09-28
 
 ### Added

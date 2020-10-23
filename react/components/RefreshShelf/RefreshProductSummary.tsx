@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
-import { ButtonWithIcon } from 'vtex.styleguide'
+import { ButtonPlain } from 'vtex.styleguide'
 import { useIntl, defineMessages } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -59,15 +59,13 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
       <div
         className={`nowrap mv4 f4 v-mid ${handles.refreshProductTitleContainer}`}
       >
-        <span className={styles.refreshProductTitle}>
+        <span className={`mr3 ${styles.refreshProductTitle}`}>
           {title && title !== '' ? title : intl.formatMessage(messages.title)}
         </span>
         {products?.length > 1 && (
-          <ButtonWithIcon
-            icon={<IconRefresh size={20} />}
-            variation="tertiary"
-            onClick={handleRefresh}
-          />
+          <ButtonPlain onClick={handleRefresh} className="ml2">
+            <IconRefresh size={20} />
+          </ButtonPlain>
         )}
       </div>
       {loading && <ProductSummaryLoader />}

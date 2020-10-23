@@ -24,7 +24,7 @@
     "graphql": "^14.7.0",
     "prop-types": "^15.7.2",
     "react-content-loader": "^5.1.0",
-    "typescript": "3.8.3",
+    "typescript": "3.9.7",
     "vtex.add-to-cart-button": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.add-to-cart-button@0.13.5/public/@types/vtex.add-to-cart-button",
     "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.2/public/@types/vtex.css-handles",
     "vtex.device-detector": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.device-detector@0.2.4/public/@types/vtex.device-detector",
