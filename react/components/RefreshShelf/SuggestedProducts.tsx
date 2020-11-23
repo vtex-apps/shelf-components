@@ -17,6 +17,7 @@ interface Props {
     showNavigationArrows: string
     showPaginationDots: string
   }
+  onProductClick: (product: Product) => void
 }
 
 const messages = defineMessages({
@@ -53,6 +54,7 @@ const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
   products,
   loading,
   sliderProps,
+  onProductClick,
 }) => {
   const { isMobile } = useDevice()
   const intl = useIntl()
@@ -79,7 +81,10 @@ const SuggestedProducts: StorefrontFunctionComponent<Props> = ({
       {(loading || !normalizedProducts) &&
         (isMobile ? <ProductSummaryLoader /> : <SliderLayoutLoader />)}
       {!loading && normalizedProducts?.length > 0 && (
-        <ProductSummaryListWithoutQuery products={normalizedProducts}>
+        <ProductSummaryListWithoutQuery
+          products={normalizedProducts}
+          actionOnProductClick={onProductClick}
+        >
           <SliderLayout
             showNavigationArrows={sliderProps?.showNavigationArrows ?? 'always'}
             showPaginationDots={sliderProps?.showPaginationDots ?? 'always'}

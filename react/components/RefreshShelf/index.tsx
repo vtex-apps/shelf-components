@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useLazyQuery } from 'react-apollo'
+import { useRuntime } from 'vtex.render-runtime'
 import { QueryProducts as productsQuery } from 'vtex.store-resources'
+import { usePixel } from 'vtex.pixel-manager/PixelContext'
 
 import productsByIdentifier from '../../queries/productsByIdentifier.gql'
 import RefreshProductSummary from './RefreshProductSummary'
@@ -10,6 +12,7 @@ import {
   sortBaseProductsBySuggestedLists,
   sortProductsBySuggestedIds,
 } from '../../utils'
+import { handleProductClick } from '../../utils/events'
 
 enum ProductUniqueIdentifierField {
   id = 'id',
@@ -40,6 +43,9 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   recommendedLists,
   ...props
 }) => {
+  const { push } = usePixel()
+  const { page } = useRuntime()
+  const onProductClick = handleProductClick(push, page)
   const [current, setCurrent] = useState(0)
   const [
     queryProducts,
@@ -237,13 +243,15 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
         selected={current}
         products={baseProducts}
         onChangeSelected={handleChangeProduct}
+        onProductClick={onProductClick}
       />
       <SuggestedProducts
         title={suggestedProductsTitle}
         loading={baseProductsLoading || loading || loadingProductsById}
         products={suggestedProducts}
         sliderProps={props.sliderLayout}
-        key={baseProducts?.[current].productId}
+        key={baseProducts?.[current]?.productId}
+        onProductClick={onProductClick}
       />
     </div>
   )

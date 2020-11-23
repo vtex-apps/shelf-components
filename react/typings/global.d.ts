@@ -11,15 +11,18 @@ declare global {
     brandId: number
     cacheId: string
     categories: string[]
+    clusterHighlights?: Array<{ id: string; name: string }>
     categoryTree?: Array<{ slug: string }>
     description?: string
     items: SKU[]
     link: string
     linkText: string
     priceRange: ProductPriceRange
+    productClusters?: Array<{ id: string; name: string }>
     productId: string
     productName: string
     productReference: string
+    properties?: Array<{ name: string; values: string[] }>
     sku?: SKU
     specificationGroups: SpecificationGroup[]
   }
@@ -85,26 +88,31 @@ declare global {
   }
 
   interface SKU {
+    complementName?: string
     ean?: string
-    images: Array<{
-      imageId?: string
-      imageLabel: string
-      imageTag?: string
-      imageUrl: string
-      imageText?: string
-    }>
+    image?: Image
+    images: Image[]
     itemId: string
     measurementUnit: string
     name: string
     nameComplete?: string
-    unitMultiplier?: number
-    seller?: Seller
-    sellers: Seller[]
     referenceId: Array<{
       Key: string
       Value: string
     }> | null
+    seller?: Seller
+    sellers: Seller[]
+    unitMultiplier?: number
     variations: Array<{ name: string; values: string[] }>
+  }
+
+  interface Image {
+    cacheId?: string
+    imageId?: string
+    imageLabel: string | null
+    imageTag?: string
+    imageUrl: string
+    imageText?: string | null
   }
 
   interface Seller {
@@ -121,14 +129,19 @@ declare global {
     ListPrice: number
     Price: number
     PriceWithoutDiscount: number
+    RewardValue?: number
     Tax: number
+    discountHighlights?: Array<{ name: string }>
+    spotPrice?: number
     taxPercentage: number
+    teasers?: Array<{ name: string }>
   }
 
   interface Installment {
     InterestRate: number
     Name: string
     NumberOfInstallments: number
+    PaymentSystemName?: string
     TotalValuePlusInterestRate: number
     Value: number
   }

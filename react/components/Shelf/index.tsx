@@ -1,8 +1,10 @@
 import React from 'react'
-import { ExtensionPoint } from 'vtex.render-runtime'
+import { ExtensionPoint, useRuntime } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
+import { usePixel } from 'vtex.pixel-manager/PixelContext'
 
 import styles from './styles.css'
+import { handleProductClick } from '../../utils/events'
 
 interface Props {
   title?: string
@@ -13,6 +15,9 @@ const CSS_HANDLES = ['shelfTitleContainer', 'shelfTitle']
 
 const Shelf: StorefrontFunctionComponent<Props> = ({ title, products }) => {
   const handles = useCssHandles(CSS_HANDLES)
+  const { page } = useRuntime()
+  const { push } = usePixel()
+  const onProductClick = handleProductClick(push, page)
 
   return (
     <div className="flex-none tc">
@@ -24,12 +29,16 @@ const Shelf: StorefrontFunctionComponent<Props> = ({ title, products }) => {
         </div>
       )}
       {(!products || products.length === 0) && (
-        <ExtensionPoint id="list-context.product-list" />
+        <ExtensionPoint
+          id="list-context.product-list"
+          actionOnProductClick={onProductClick}
+        />
       )}
       {products && products.length > 0 && (
         <ExtensionPoint
           id="list-context.product-list-static"
           products={products}
+          actionOnProductClick={onProductClick}
         />
       )}
     </div>

@@ -3,16 +3,18 @@ import { FormattedMessage, defineMessages } from 'react-intl'
 import { IconPlusLines } from 'vtex.styleguide'
 import { ProductListContext } from 'vtex.product-list-context'
 import { useProduct } from 'vtex.product-context'
-import { useTreePath, ExtensionPoint } from 'vtex.render-runtime'
+import { useTreePath, ExtensionPoint, useRuntime } from 'vtex.render-runtime'
 import { FormattedCurrency } from 'vtex.format-currency'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { ProductGroupContext } from 'vtex.product-group-context'
 import { useCssHandles } from 'vtex.css-handles'
+import { usePixel } from 'vtex.pixel-manager/PixelContext'
 
 import ProductSummaryWithActions from './ProductSummaryWithActions'
 import IconEqual from '../../icons/IconEqual'
 import styles from './styles.css'
 import { mapSKUItemsToCartItems, sortItemsByLists } from '../../utils'
+import { handleProductClick } from '../../utils/events'
 
 const { ProductGroupProvider, useProductGroup } = ProductGroupContext
 
@@ -50,6 +52,9 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
   BuyButton,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
+  const { page } = useRuntime()
+  const { push } = usePixel()
+  const onProductClick = handleProductClick(push, page)
   const { product: baseProduct } = useProduct() as any
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { items } = useProductGroup()!
@@ -137,6 +142,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
               <ExtensionPoint
                 id="product-summary"
                 product={normalizedBaseProduct}
+                actionOnClick={() => onProductClick(normalizedBaseProduct)}
               />
             </div>
           </div>
@@ -154,6 +160,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
                   hideChangeAction={products.length <= 1}
                   onChangeProduct={onChangeProduct}
                   product={products[current]}
+                  onProductClick={onProductClick}
                 />
               </Fragment>
             )
@@ -171,6 +178,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
             <div className={`mv5 ${handles.totalValue}`}>
               <FormattedCurrency value={totalPrice} />
             </div>
+            {/* verificar se eh add-to-cart-button e add customPixelEventId */}
             <BuyButton skuItems={cartItems} />
           </div>
         </ProductListProvider>

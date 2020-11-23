@@ -15,6 +15,7 @@ interface Props {
   hideChangeAction?: boolean
   onDeleteOrAdd: (index: number) => void
   onChangeProduct: (index: number) => void
+  onProductClick: (product: Product) => void
 }
 
 const messages = defineMessages({
@@ -39,6 +40,7 @@ const ProductSummaryWithActions: StorefrontFunctionComponent<Props> = ({
   hideChangeAction,
   onDeleteOrAdd,
   onChangeProduct,
+  onProductClick,
 }) => {
   const normalizedProduct = useMemo(
     () => ProductSummary.mapCatalogProductToProductSummary(product),
@@ -70,7 +72,11 @@ const ProductSummaryWithActions: StorefrontFunctionComponent<Props> = ({
         </ButtonWithIcon>
       </div>
       <div className={classnames({ [styles.disabledProduct]: hidden })}>
-        <ExtensionPoint id="product-summary" product={normalizedProduct} />
+        <ExtensionPoint
+          id="product-summary"
+          product={normalizedProduct}
+          actionOnClick={() => onProductClick(normalizedProduct)}
+        />
       </div>
     </div>
   )

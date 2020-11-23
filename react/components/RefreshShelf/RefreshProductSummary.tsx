@@ -15,6 +15,7 @@ interface RefreshProductSummaryProps {
   loading: boolean
   onChangeSelected?: () => void
   title?: string
+  onProductClick: (product: Product) => void
 }
 
 const messages = defineMessages({
@@ -32,6 +33,7 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
   onChangeSelected,
   loading,
   title,
+  onProductClick,
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -71,7 +73,11 @@ const RefreshProductSummary: StorefrontFunctionComponent<RefreshProductSummaryPr
       {loading && <ProductSummaryLoader />}
       {!loading && selectedProduct && selectedProduct.productId && (
         <div key={selectedProduct.productId}>
-          <ExtensionPoint id="product-summary" product={selectedProduct} />
+          <ExtensionPoint
+            id="product-summary"
+            product={selectedProduct}
+            actionOnClick={() => onProductClick(selectedProduct)}
+          />
         </div>
       )}
     </div>
