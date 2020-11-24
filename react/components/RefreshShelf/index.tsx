@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { useLazyQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { QueryProducts as productsQuery } from 'vtex.store-resources'
@@ -12,7 +12,8 @@ import {
   sortBaseProductsBySuggestedLists,
   sortProductsBySuggestedIds,
 } from '../../utils'
-import { handleProductClick } from '../../utils/events'
+import { handleProductClick, handleView } from '../../utils/events'
+import { useOnView } from '../../hooks/useOnView'
 
 enum ProductUniqueIdentifierField {
   id = 'id',
@@ -46,7 +47,17 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   const { push } = usePixel()
   const { page } = useRuntime()
   const onProductClick = handleProductClick(push, page)
+  const onView = handleView(push, page)
+  const ref = useRef<HTMLDivElement | null>(null)
   const [current, setCurrent] = useState(0)
+
+  useOnView({
+    ref,
+    onView: () => onView('refresh'),
+    once: true,
+    initializeOnInteraction: true,
+  })
+
   const [
     queryProducts,
     { data: productsData, loading, called, refetch },
@@ -236,6 +247,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   return (
     <div
       className={`flex flex-wrap flex-nowrap-ns justify-around ${styles.refreshShelf}`}
+      ref={ref}
     >
       <RefreshProductSummary
         title={baseProductTitle}

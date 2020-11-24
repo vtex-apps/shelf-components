@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { ExtensionPoint, useRuntime } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
 
 import styles from './styles.css'
-import { handleProductClick } from '../../utils/events'
+import { handleProductClick, handleView } from '../../utils/events'
+import { useOnView } from '../../hooks/useOnView'
 
 interface Props {
   title?: string
@@ -18,9 +19,18 @@ const Shelf: StorefrontFunctionComponent<Props> = ({ title, products }) => {
   const { page } = useRuntime()
   const { push } = usePixel()
   const onProductClick = handleProductClick(push, page)
+  const onView = handleView(push, page)
+  const ref = useRef<HTMLDivElement | null>(null)
+
+  useOnView({
+    ref,
+    onView: () => onView('default'),
+    once: true,
+    initializeOnInteraction: true,
+  })
 
   return (
-    <div className="flex-none tc">
+    <div className="flex-none tc" ref={ref}>
       {title && (
         <div className={`mv4 v-mid ${handles.shelfTitleContainer}`}>
           <span className={`${styles.shelfTitle} ${handles.shelfTitle}`}>
