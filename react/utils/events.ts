@@ -15,24 +15,13 @@ export const handleProductClick = (push: (data: any) => void, page: string) => {
   }
 }
 
-export const handleAddToCart = (push: (data: any) => void, page: string) => {
-  return (items: any[]) => {
-    push({
-      page,
-      event: 'shelf',
-      eventType: EventType.AddToCart,
-      items,
-    })
-  }
-}
-
 export const handleView = (push: (data: any) => void, page: string) => {
-  return (product: any) => {
+  return (shelf: string) => {
     push({
       page,
       event: 'shelf',
       eventType: EventType.View,
-      product,
+      shelf,
     })
   }
 }
