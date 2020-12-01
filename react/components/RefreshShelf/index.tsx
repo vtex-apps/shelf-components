@@ -3,6 +3,7 @@ import { useLazyQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { QueryProducts as productsQuery } from 'vtex.store-resources'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
+import { useRecommendation } from 'vtex.recommendation-context/RecommendationContext'
 
 import productsByIdentifier from '../../queries/productsByIdentifier.gql'
 import RefreshProductSummary from './RefreshProductSummary'
@@ -12,8 +13,8 @@ import {
   sortBaseProductsBySuggestedLists,
   sortProductsBySuggestedIds,
 } from '../../utils'
-import { handleProductClick, handleView } from '../../utils/events'
 import { useOnView } from '../../hooks/useOnView'
+import { useEvents } from '../../hooks/useEvents'
 
 enum ProductUniqueIdentifierField {
   id = 'id',
@@ -46,10 +47,10 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
 }) => {
   const { push } = usePixel()
   const { page } = useRuntime()
-  const onProductClick = handleProductClick(push, page)
-  const onView = handleView(push, page)
-  const ref = useRef<HTMLDivElement | null>(null)
   const [current, setCurrent] = useState(0)
+  const ref = useRef<HTMLDivElement | null>(null)
+  const recommendation = useRecommendation?.()
+  const { onView, onProductClick } = useEvents(recommendation, push, page)
 
   useOnView({
     ref,

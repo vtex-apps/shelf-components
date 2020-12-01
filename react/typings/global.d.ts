@@ -10,7 +10,7 @@ declare global {
     brand: string
     brandId: number
     cacheId: string
-    categories: string[]
+    categories?: string[]
     clusterHighlights?: Array<{ id: string; name: string }>
     categoryTree?: Array<{ slug: string }>
     description?: string

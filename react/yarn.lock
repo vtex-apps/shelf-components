@@ -4842,9 +4842,9 @@ verror@1.10.0:
   version "2.63.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.63.1/public/@types/vtex.product-summary#ecd58f6567175a3e53473eab8efee80933903ae9"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.125.0/public/@types/vtex.render-runtime":
-  version "8.125.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.125.0/public/@types/vtex.render-runtime#9cef678d3abf4e84c6aeabf266530882a3a3cfd7"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.0/public/@types/vtex.render-runtime":
+  version "8.126.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.0/public/@types/vtex.render-runtime#910cb26d40acb46be4d35d654948ae6a191d1057"
 
 "vtex.responsive-layout@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.responsive-layout@0.1.2/public/@types/vtex.responsive-layout":
   version "0.1.2"

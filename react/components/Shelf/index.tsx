@@ -2,10 +2,11 @@ import React, { useRef } from 'react'
 import { ExtensionPoint, useRuntime } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
+import { useRecommendation } from 'vtex.recommendation-context/RecommendationContext'
 
 import styles from './styles.css'
-import { handleProductClick, handleView } from '../../utils/events'
 import { useOnView } from '../../hooks/useOnView'
+import { useEvents } from '../../hooks/useEvents'
 
 interface Props {
   title?: string
@@ -18,9 +19,9 @@ const Shelf: StorefrontFunctionComponent<Props> = ({ title, products }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { page } = useRuntime()
   const { push } = usePixel()
-  const onProductClick = handleProductClick(push, page)
-  const onView = handleView(push, page)
   const ref = useRef<HTMLDivElement | null>(null)
+  const recommendation = useRecommendation?.()
+  const { onView, onProductClick } = useEvents(recommendation, push, page)
 
   useOnView({
     ref,

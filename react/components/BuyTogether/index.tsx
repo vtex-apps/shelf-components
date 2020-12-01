@@ -9,13 +9,14 @@ import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { ProductGroupContext } from 'vtex.product-group-context'
 import { useCssHandles } from 'vtex.css-handles'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
+import { useRecommendation } from 'vtex.recommendation-context/RecommendationContext'
 
-import ProductSummaryWithActions from './ProductSummaryWithActions'
-import IconEqual from '../../icons/IconEqual'
 import styles from './styles.css'
+import IconEqual from '../../icons/IconEqual'
+import ProductSummaryWithActions from './ProductSummaryWithActions'
 import { mapSKUItemsToCartItems, sortItemsByLists } from '../../utils'
-import { handleProductClick, handleView } from '../../utils/events'
 import { useOnView } from '../../hooks/useOnView'
+import { useEvents } from '../../hooks/useEvents'
 
 const { ProductGroupProvider, useProductGroup } = ProductGroupContext
 
@@ -55,13 +56,13 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
   const handles = useCssHandles(CSS_HANDLES)
   const { page } = useRuntime()
   const { push } = usePixel()
-  const onProductClick = handleProductClick(push, page)
-  const onView = handleView(push, page)
   const ref = useRef<HTMLDivElement | null>(null)
   const { product: baseProduct } = useProduct() as any
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { items } = useProductGroup()!
   const { treePath } = useTreePath()
+  const recommendation = useRecommendation?.()
+  const { onView, onProductClick } = useEvents(recommendation, push, page)
 
   useOnView({
     ref,
@@ -189,7 +190,6 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
             <div className={`mv5 ${handles.totalValue}`}>
               <FormattedCurrency value={totalPrice} />
             </div>
-            {/* verificar se eh add-to-cart-button e add customPixelEventId */}
             <BuyButton skuItems={cartItems} />
           </div>
         </ProductListProvider>
