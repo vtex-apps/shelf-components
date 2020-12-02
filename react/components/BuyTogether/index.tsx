@@ -1,18 +1,22 @@
-import React, { useState, Fragment, useMemo } from 'react'
+import React, { useState, Fragment, useMemo, useRef } from 'react'
 import { FormattedMessage, defineMessages } from 'react-intl'
 import { IconPlusLines } from 'vtex.styleguide'
 import { ProductListContext } from 'vtex.product-list-context'
 import { useProduct } from 'vtex.product-context'
-import { useTreePath, ExtensionPoint } from 'vtex.render-runtime'
+import { useTreePath, ExtensionPoint, useRuntime } from 'vtex.render-runtime'
 import { FormattedCurrency } from 'vtex.format-currency'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { ProductGroupContext } from 'vtex.product-group-context'
 import { useCssHandles } from 'vtex.css-handles'
+import { usePixel } from 'vtex.pixel-manager/PixelContext'
+import { useRecommendation } from 'vtex.recommendation-context/RecommendationContext'
 
-import ProductSummaryWithActions from './ProductSummaryWithActions'
-import IconEqual from '../../icons/IconEqual'
 import styles from './styles.css'
+import IconEqual from '../../icons/IconEqual'
+import ProductSummaryWithActions from './ProductSummaryWithActions'
 import { mapSKUItemsToCartItems, sortItemsByLists } from '../../utils'
+import { useOnView } from '../../hooks/useOnView'
+import { useEvents } from '../../hooks/useEvents'
 
 const { ProductGroupProvider, useProductGroup } = ProductGroupContext
 
@@ -50,10 +54,23 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
   BuyButton,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
+  const { page } = useRuntime()
+  const { push } = usePixel()
+  const ref = useRef<HTMLDivElement | null>(null)
   const { product: baseProduct } = useProduct() as any
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { items } = useProductGroup()!
   const { treePath } = useTreePath()
+  const recommendation = useRecommendation?.()
+  const { onView, onProductClick } = useEvents(recommendation, push, page)
+
+  useOnView({
+    ref,
+    onView: () => onView('buy-together'),
+    once: true,
+    initializeOnInteraction: true,
+  })
+
   const [suggestedLists, setSuggestedLists] = useState<SuggestedList[]>(
     suggestedProducts?.map(list => {
       return { products: list, hidden: false, current: 0 }
@@ -119,7 +136,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
   }, [cartItems])
 
   return (
-    <div className={`flex-none tc ${handles.buyTogetherContainer}`}>
+    <div className={`flex-none tc ${handles.buyTogetherContainer}`} ref={ref}>
       <div className={`mv4 v-mid ${handles.buyTogetherTitleContainer}`}>
         <span className={handles.buyTogetherTitle}>
           {title && title !== '' ? (
@@ -137,6 +154,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
               <ExtensionPoint
                 id="product-summary"
                 product={normalizedBaseProduct}
+                actionOnClick={() => onProductClick(normalizedBaseProduct)}
               />
             </div>
           </div>
@@ -154,6 +172,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
                   hideChangeAction={products.length <= 1}
                   onChangeProduct={onChangeProduct}
                   product={products[current]}
+                  onProductClick={onProductClick}
                 />
               </Fragment>
             )

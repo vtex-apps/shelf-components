@@ -1,6 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { useLazyQuery } from 'react-apollo'
+import { useRuntime } from 'vtex.render-runtime'
 import { QueryProducts as productsQuery } from 'vtex.store-resources'
+import { usePixel } from 'vtex.pixel-manager/PixelContext'
+import { useRecommendation } from 'vtex.recommendation-context/RecommendationContext'
 
 import productsByIdentifier from '../../queries/productsByIdentifier.gql'
 import RefreshProductSummary from './RefreshProductSummary'
@@ -10,6 +13,8 @@ import {
   sortBaseProductsBySuggestedLists,
   sortProductsBySuggestedIds,
 } from '../../utils'
+import { useOnView } from '../../hooks/useOnView'
+import { useEvents } from '../../hooks/useEvents'
 
 enum ProductUniqueIdentifierField {
   id = 'id',
@@ -40,7 +45,20 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   recommendedLists,
   ...props
 }) => {
+  const { push } = usePixel()
+  const { page } = useRuntime()
   const [current, setCurrent] = useState(0)
+  const ref = useRef<HTMLDivElement | null>(null)
+  const recommendation = useRecommendation?.()
+  const { onView, onProductClick } = useEvents(recommendation, push, page)
+
+  useOnView({
+    ref,
+    onView: () => onView('refresh'),
+    once: true,
+    initializeOnInteraction: true,
+  })
+
   const [
     queryProducts,
     { data: productsData, loading, called, refetch },
@@ -230,6 +248,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   return (
     <div
       className={`flex flex-wrap flex-nowrap-ns justify-around ${styles.refreshShelf}`}
+      ref={ref}
     >
       <RefreshProductSummary
         title={baseProductTitle}
@@ -237,13 +256,15 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
         selected={current}
         products={baseProducts}
         onChangeSelected={handleChangeProduct}
+        onProductClick={onProductClick}
       />
       <SuggestedProducts
         title={suggestedProductsTitle}
         loading={baseProductsLoading || loading || loadingProductsById}
         products={suggestedProducts}
         sliderProps={props.sliderLayout}
-        key={baseProducts?.[current].productId}
+        key={baseProducts?.[current]?.productId}
+        onProductClick={onProductClick}
       />
     </div>
   )
