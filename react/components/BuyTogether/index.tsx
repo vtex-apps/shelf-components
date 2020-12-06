@@ -135,6 +135,10 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
     }, 0)
   }, [cartItems])
 
+  if (!suggestedLists.length) {
+    return null
+  }
+
   return (
     <div className={`flex-none tc ${handles.buyTogetherContainer}`} ref={ref}>
       <div className={`mv4 v-mid ${handles.buyTogetherTitleContainer}`}>
