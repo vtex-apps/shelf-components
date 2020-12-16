@@ -61,7 +61,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
 
   const [
     queryProducts,
-    { data: productsData, loading, called, refetch },
+    { data: productsData, loading: loadingProducts, called, refetch },
   ] = useLazyQuery(productsQuery, {
     notifyOnNetworkStatusChange: true,
   })
@@ -71,7 +71,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     queryBaseProductsByID,
     {
       data: baseProductsData,
-      loading: baseProductsLoading,
+      loading: loadingBaseProducts,
       called: queryBaseProductsCalled,
       refetch: baseProductsRefetch,
     },
@@ -91,7 +91,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     if (recommendedLists) {
       return recommendedLists.map((list: RecommendedList) => list.base[0])
     }
-    if (!suggestedLists) {
+    if (!suggestedLists || suggestedLists.length === 0) {
       return []
     }
     if (baseProductsData?.productsByIdentifier) {
@@ -245,6 +245,21 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     setCurrent(newIndex)
   }
 
+  const loading = useMemo(
+    () => loadingBaseProducts || loadingProducts || loadingProductsById,
+    [loadingBaseProducts, loadingProducts, loadingProductsById]
+  )
+
+  if (
+    !loading &&
+    (!baseProducts ||
+      !suggestedProducts ||
+      !baseProducts.length ||
+      !suggestedProducts.length)
+  ) {
+    return null
+  }
+
   return (
     <div
       className={`flex flex-wrap flex-nowrap-ns justify-around ${styles.refreshShelf}`}
@@ -252,7 +267,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
     >
       <RefreshProductSummary
         title={baseProductTitle}
-        loading={loading || baseProductsLoading || loadingProductsById}
+        loading={loading}
         selected={current}
         products={baseProducts}
         onChangeSelected={handleChangeProduct}
@@ -260,7 +275,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
       />
       <SuggestedProducts
         title={suggestedProductsTitle}
-        loading={baseProductsLoading || loading || loadingProductsById}
+        loading={loading}
         products={suggestedProducts}
         sliderProps={props.sliderLayout}
         key={baseProducts?.[current]?.productId}
