@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Buy together shelf on desktop.
+
 ## [0.7.0] - 2020-12-16
 
 ### Changed

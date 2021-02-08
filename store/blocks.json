@@ -95,6 +95,9 @@
       "product-summary-sku-selector#buy-together"
     ]
   },
+  "flex-layout.row#product-summary-desktop": {
+    "children": ["flex-layout.col#product-summary-desktop"]
+  },
 
   "responsive-layout.phone#product-summary": {
     "children": ["flex-layout.row#product-summary-mobile"]
@@ -104,7 +107,7 @@
   },
 
   "responsive-layout.desktop#product-summary": {
-    "children": ["flex-layout.col#product-summary-desktop"]
+    "children": ["flex-layout.row#product-summary-desktop"]
   },
 
   "product-summary.shelf#buy-together": {
