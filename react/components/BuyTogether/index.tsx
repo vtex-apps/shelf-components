@@ -131,7 +131,7 @@ const BuyTogether: StorefrontFunctionComponent<Props> = ({
   const totalProducts = cartItems.length
   const totalPrice = useMemo(() => {
     return cartItems.reduce((total: number, currentItem: CartItem) => {
-      return total + currentItem.price / 100
+      return total + currentItem.sellingPrice / 100
     }, 0)
   }, [cartItems])
 
