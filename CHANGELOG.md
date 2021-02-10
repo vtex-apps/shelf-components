@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.7.1] - 2021-02-10
+
 ### Fixed
 - Buy together shelf on desktop.
 - Total price using `sellingPrice`.
