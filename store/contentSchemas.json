@@ -6,6 +6,10 @@
         "title": {
           "title": "admin/editor.title.label",
           "type": "string"
+        },
+        "secondaryTitle": {
+          "title": "admin/editor.secondary-title.label",
+          "type": "string"
         }
       }
     },
@@ -25,8 +29,16 @@
           "title": "admin/editor.refresh-shelf.base-product.label",
           "type": "string"
         },
+        "secondaryBaseProductTitle": {
+          "title": "admin/editor.refresh-shelf.secondary-base-product.label",
+          "type": "string"
+        },
         "suggestedProductsTitle": {
           "title": "admin/editor.refresh-shelf.suggested-products.label",
+          "type": "string"
+        },
+        "secondarySuggestedProductsTitle": {
+          "title": "admin/editor.refresh-shelf.secondary-suggested-products.label",
           "type": "string"
         },
         "suggestedLists": {

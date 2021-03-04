@@ -11,11 +11,18 @@ import { useEvents } from '../../hooks/useEvents'
 interface Props {
   title?: string
   products?: Product[]
+  isSecondary?: boolean
+  secondaryTitle?: string
 }
 
 const CSS_HANDLES = ['shelfTitleContainer', 'shelfTitle']
 
-const Shelf: StorefrontFunctionComponent<Props> = ({ title, products }) => {
+const Shelf: StorefrontFunctionComponent<Props> = ({
+  title,
+  products,
+  isSecondary,
+  secondaryTitle,
+}) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { page } = useRuntime()
   const { push } = usePixel()
@@ -30,12 +37,14 @@ const Shelf: StorefrontFunctionComponent<Props> = ({ title, products }) => {
     initializeOnInteraction: true,
   })
 
+  const currentTitle = isSecondary ? secondaryTitle : title
+
   return (
     <div className="flex-none tc" ref={ref}>
-      {title && (
+      {currentTitle && (
         <div className={`mv4 v-mid ${handles.shelfTitleContainer}`}>
           <span className={`${styles.shelfTitle} ${handles.shelfTitle}`}>
-            {title}
+            {currentTitle}
           </span>
         </div>
       )}
