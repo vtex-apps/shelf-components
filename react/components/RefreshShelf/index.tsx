@@ -33,6 +33,9 @@ interface RefreshShelfProps {
     showNavigationArrows: string
     showPaginationDots: string
   }
+  isSecondary?: boolean
+  secondaryBaseProductTitle?: string
+  secondarySuggestedProductsTitle?: string
 }
 
 const parseFilters = ({ id, value }: SpecificationFilter) =>
@@ -43,6 +46,9 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
   suggestedProductsTitle,
   suggestedLists,
   recommendedLists,
+  isSecondary,
+  secondaryBaseProductTitle,
+  secondarySuggestedProductsTitle,
   ...props
 }) => {
   const { push } = usePixel()
@@ -266,7 +272,7 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
       ref={ref}
     >
       <RefreshProductSummary
-        title={baseProductTitle}
+        title={isSecondary ? secondaryBaseProductTitle : baseProductTitle}
         loading={loading}
         selected={current}
         products={baseProducts}
@@ -274,7 +280,9 @@ const RefreshShelf: StorefrontFunctionComponent<RefreshShelfProps> = ({
         onProductClick={onProductClick}
       />
       <SuggestedProducts
-        title={suggestedProductsTitle}
+        title={
+          isSecondary ? secondarySuggestedProductsTitle : suggestedProductsTitle
+        }
         loading={loading}
         products={suggestedProducts}
         sliderProps={props.sliderLayout}
