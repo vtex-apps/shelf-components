@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "shelf-components",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "title": "Shelf components",
   "description": "Components of the new shelves",
   "builders": {

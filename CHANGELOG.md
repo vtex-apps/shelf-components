@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.10.1] - 2024-11-06
+
 ### Changed
 `list-context.product-list` and `list-context.product-list-static` to `allowed` instead of `required`.
 
