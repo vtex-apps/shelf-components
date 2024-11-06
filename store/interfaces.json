@@ -16,10 +16,7 @@
     }
   },
   "default-shelf": {
-    "required": [
-      "list-context.product-list",
-      "list-context.product-list-static"
-    ],
+    "allowed": ["list-context.product-list", "list-context.product-list-static"],
     "component": "Shelf",
     "content": {
       "$ref": "#/definitions/Shelf"
